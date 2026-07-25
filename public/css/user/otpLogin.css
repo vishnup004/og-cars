@@ -1,0 +1,212 @@
+:root{
+  --bg: #0d0f14;
+  --card-bg: #14161d;
+  --border: #2a2d38;
+  --border-error: #7a3b3b;
+  --text: #f2f3f5;
+  --text-dim: #9a9ea8;
+  --link: #4d8dff;
+  --error: #e07a7a;
+  --icon-circle-bg: #1c2030;
+  --icon-circle-border: #333950;
+  --otp-bg: #1b1e28;
+  --otp-border: #2f333f;
+  --otp-border-focus: #4d8dff;
+  --progress-track: #2a2d38;
+  --progress-fill: #4d8dff;
+  --verify-btn-bg: #a9bdf5;
+  --verify-btn-text: #10131c;
+  --verify-btn-hover: #93a9ee;
+}
+ 
+*{ box-sizing: border-box; }
+ 
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(600px 300px at 85% 15%, rgba(77,141,255,0.06), transparent 60%),
+    var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+ 
+.modal{
+  position:relative;
+  width:340px;
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:32px 26px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  text-align:center;
+}
+ 
+.icon-circle{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:var(--icon-circle-bg);
+  border:1px solid var(--icon-circle-border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 18px;
+  color:var(--link);
+}
+.icon-circle svg{ width:22px; height:22px; }
+ 
+h1{
+  margin:0 0 8px;
+  font-size:20px;
+  font-weight:800;
+  font-style:italic;
+  letter-spacing:0.5px;
+  color:var(--text);
+  text-transform:uppercase;
+}
+ 
+.subtitle{
+  margin:0 0 22px;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text-dim);
+}
+ 
+.otp-row{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-bottom:14px;
+}
+ 
+.otp-input{
+  width:42px;
+  height:50px;
+  background:var(--otp-bg);
+  border:1px solid var(--otp-border);
+  border-radius:8px;
+  color:var(--text);
+  font-size:18px;
+  font-weight:700;
+  text-align:center;
+  outline:none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.otp-input:focus{
+  border-color: var(--otp-border-focus);
+  box-shadow: 0 0 0 3px rgba(77,141,255,0.25);
+}
+.otp-row.has-error .otp-input{
+  border-color: var(--border-error);
+}
+ 
+.error-msg{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin:0 0 16px;
+  font-size:11.5px;
+  font-weight:600;
+  letter-spacing:0.3px;
+  text-transform:uppercase;
+  color:var(--error);
+}
+.error-msg.visible{ display:flex; }
+ 
+.progress-track{
+  height:3px;
+  width:100%;
+  background:var(--progress-track);
+  border-radius:2px;
+  overflow:hidden;
+  margin-bottom:14px;
+}
+.progress-fill{
+  height:100%;
+  width:100%;
+  background:var(--progress-fill);
+  border-radius:2px;
+  transition: width 1s linear;
+}
+ 
+.timer{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:11.5px;
+  font-weight:600;
+  letter-spacing:0.3px;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin-bottom:20px;
+}
+.timer svg{ width:13px; height:13px; }
+.timer.expired{ color:var(--error); }
+ 
+.verify-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  background:var(--verify-btn-bg);
+  border:none;
+  border-radius:8px;
+  padding:13px;
+  color:var(--verify-btn-text);
+  font-size:14px;
+  font-weight:800;
+  font-style:italic;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition: background .15s ease, transform .1s ease;
+}
+.verify-btn:hover{ background:var(--verify-btn-hover); }
+.verify-btn:active{ transform: translateY(1px); }
+.verify-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+ 
+.helper-links{
+  margin-top:18px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+ 
+.helper-links a, .resend-text{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.3px;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  text-decoration:none;
+}
+ 
+.resend-text .resend-link{
+  color:var(--link);
+  text-decoration:none;
+  cursor:pointer;
+}
+.resend-text .resend-link:hover{ text-decoration:underline; }
+.resend-text .resend-link.disabled{
+  color:var(--text-dim);
+  cursor:not-allowed;
+  pointer-events:none;
+}
+ 
+.change-email-link:hover{ color:var(--text); }
+ 
+.auth-status{
+  margin-top:14px;
+  font-size:12px;
+  color:var(--text-dim);
+  text-align:center;
+  min-height:16px;
+}
+.auth-status.active{ color:var(--link); }
+.auth-status.error{ color:var(--error); }   

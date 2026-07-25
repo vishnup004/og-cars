@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forget</title>
+    <link rel="stylesheet" href="css/user/forgetPass.css">
+</head>
+<body>
+     <div class="modal">
+      <span class="badge">System Recovery Protocol</span>
+ 
+      <h1>Forgot Password?</h1>
+      <p class="subtitle">Enter your racer email address and we'll send you a recovery code to reset your telemetry link.</p>
+ 
+      <form id="forgotForm" novalidate>
+ 
+        <div class="field" id="emailField">
+          <label for="email">Racer Email</label>
+          <div class="input-wrap">
+            <span class="input-icon">@</span>
+            <input type="text" id="email" placeholder="racer_77@invalid" autocomplete="email">
+          </div>
+          <p class="error-msg">Please enter a valid racer email address</p>
+        </div>
+ 
+        <button type="submit" class="recovery-btn" id="recoveryBtn">
+          Send Recovery Code <span aria-hidden="true">⚡</span>
+        </button>
+ 
+        <p class="auth-status" id="authStatus"></p>
+ 
+        <hr class="divider-line">
+ 
+        <a href="#" class="back-link" id="backToLogin">&lt; Back to Login</a>
+      </form>
+    </div>
+    <script src="js/user/forgetPass.ejs"></script>
+</body>
+</html>

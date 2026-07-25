@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/user/otpLogin.css">
+    <title> </title>
+</head>
+<body>
+     <div class="modal">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 8.82a15 15 0 0 1 20 0"></path>
+          <path d="M5 12.86a10 10 0 0 1 14 0"></path>
+          <path d="M8.5 16.9a5 5 0 0 1 7 0"></path>
+          <line x1="12" y1="20" x2="12.01" y2="20"></line>
+        </svg>
+      </div>
+ 
+      <h1>Verify Your OTP</h1>
+      <p class="subtitle">Enter the 6-digit telemetry code sent to your registered racer email.</p>
+ 
+      <form id="otpForm" novalidate>
+ 
+        <div class="otp-row" id="otpRow">
+          <input type="text" class="otp-input" inputmode="numeric" maxlength="1" autocomplete="one-time-code" data-index="0">
+          <input type="text" class="otp-input" inputmode="numeric" maxlength="1" data-index="1">
+          <input type="text" class="otp-input" inputmode="numeric" maxlength="1" data-index="2">
+          <input type="text" class="otp-input" inputmode="numeric" maxlength="1" data-index="3">
+          <input type="text" class="otp-input" inputmode="numeric" maxlength="1" data-index="4">
+          <input type="text" class="otp-input" inputmode="numeric" maxlength="1" data-index="5">
+        </div>
+ 
+        <p class="error-msg" id="otpError">
+          <span aria-hidden="true">⚠</span> Invalid code. Please re-sync telemetry.
+        </p>
+ 
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+ 
+        <p class="timer" id="timer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Signal expires in <span id="timeLeft">00:58</span>
+        </p>
+ 
+        <button type="submit" class="verify-btn" id="verifyBtn">Verify Signal</button>
+ 
+        <p class="auth-status" id="authStatus"></p>
+ 
+        <div class="helper-links">
+          <p class="resend-text">
+            Didn't receive the code?
+            <a href="#" class="resend-link" id="resendLink">Resend</a>
+          </p>
+          <a href="#" class="change-email-link" id="changeEmail">Change email address</a>
+        </div>
+ 
+      </form>
+    </div>
+    <script src="js/user/otpLogin.js"></script>
+</body>
+</html>
