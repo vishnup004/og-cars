@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/user/signupOtp.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="modal">
+      <button class="close-btn" onclick="handleClose()" aria-label="Close">&times;</button>
+ 
+      <h1>Verify OTP</h1>
+      <p class="subtitle">
+        We've sent a 6-digit code to <span id="maskedEmail">your email</span>.
+        Didn't get it? <a href="#" id="resendLink" onclick="return false;">Resend code</a>
+      </p>
+ 
+      <form id="otpForm" novalidate action="/verify-otp" method="POST">
+        <div class="field" id="otpField">
+          <label for="otp1">Enter Code</label>
+          <div class="otp-inputs">
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp1" name="otp1" autocomplete="one-time-code" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp2" name="otp2" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp3" name="otp3" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp4" name="otp4" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp5" name="otp5" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp6" name="otp6" />
+          </div>
+          <p class="error-msg">Please enter the 6-digit code.</p>
+        </div>
+ 
+        <p class="timer" id="timerText">Code expires in <span id="timerValue">05:00</span></p>
+ 
+        <button type="submit" class="signup-btn" id="verifyBtn">verify</button>
+ 
+        <p class="auth-status" id="authStatus"></p> 
+      </form>
+    </div>
+ 
+
+    <script src="/js/user/signupOtp.js"></script>
+  </body>
+</html>
