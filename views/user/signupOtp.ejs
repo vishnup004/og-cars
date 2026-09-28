@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/user/forgetPassOtp.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <div class="modal">
+      <button class="close-btn" onclick="handleClose()" aria-label="Close">&times;</button>
+ 
+      
+      <h1>Verify OTP</h1>
+      <p class="subtitle">
+        We've sent a 6-digit code to <span id="maskedEmail">your email</span>.
+        Didn't get it? <a href="#" id="resendLin">Resend code</a>
+      </p>
+     
+ 
+      <form id="otpForm" novalidate action="/varify-otp2" method="POST">
+        <div class="field" id="otpField">
+          <label for="otp1">Enter Code</label>
+          <div class="otp-inputs">
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp1" name="otp1" autocomplete="one-time-code" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp2" name="otp2" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp3" name="otp3" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp4" name="otp4" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp5" name="otp5" />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" id="otp6" name="otp6" />
+          </div>
+          <p class="error-msg">Please enter the 6-digit code.</p>
+        </div>
+ 
+        <p class="timer" id="timerText">Code expires in <span id="timerValue">05:00</span></p>
+ 
+        <button type="submit" class="signup-btn" id="verifyBtn">verify</button>
+ 
+        <p class="auth-status" id="authStatus"></p> 
+      </form>
+    </div> -->
+     <div class="modal">
+      <h1>Verify Code</h1>
+      <p class="subtitle">Enter the 6-digit code we sent to your email to continue resetting your password.</p>
+ 
+      <form id="otpForm" novalidate action="/verify-otp" method="post">
+ 
+        <div class="field" id="otpField">
+          <label for="otpBox0">Enter OTP</label>
+ 
+          <div class="otp-input-wrap">
+            <input type="text" class="otp-box" id="otpBox0" inputmode="numeric" name="otp1" maxlength="1" autocomplete="one-time-code">
+            <input type="text" class="otp-box" id="otpBox1" inputmode="numeric" name="otp2" maxlength="1">
+            <input type="text" class="otp-box" id="otpBox2" inputmode="numeric" name="otp3" maxlength="1">
+            <input type="text" class="otp-box" id="otpBox3" inputmode="numeric" name="otp4" maxlength="1">
+            <input type="text" class="otp-box" id="otpBox4" inputmode="numeric" name="otp5" maxlength="1">
+            <input type="text" class="otp-box" id="otpBox5" inputmode="numeric" name="otp6" maxlength="1">
+          </div>
+ 
+          <!-- Hidden field carrying the combined 6-digit value submitted to the server -->
+          <input type="hidden" name="otp" id="otpHidden">
+ 
+          <p class="otp-timer" id="timerText">Code expires in <span id="timerValue">01:00</span></p>
+          <p class="error-msg">Please enter the 6-digit code sent to your email.</p>
+        </div>
+ 
+        <button type="submit" class="recovery-btn" id="verifyBtn">Verify Code</button>
+ 
+        <p class="auth-status" id="authStatus"></p>
+ 
+        
+      </form>
+      <div class="resend-wrap">
+          Didn't get the code?
+          <form action="/signup/resendOtp" method="POST" >
+            <button type="submit" id="resendLink" class="resend-link">
+                Resend code
+            </button>
+        </form>
+      </div>
+      
+        <hr class="divider-line">
+ 
+        <a href="/login" class="back-link">&lt; Back to Login</a>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="/js/user/signupOtp.js"></script>
+  </body>
+</html>

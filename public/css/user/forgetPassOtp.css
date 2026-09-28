@@ -1,0 +1,240 @@
+:root {
+  --bg: #0d0f14;
+  --card-bg: #14161d;
+  --border: #2a2d38;
+  --border-error: #7a3b3b;
+  --text: #f2f3f5;
+  --text-dim: #9a9ea8;
+  --link: #4d8dff;
+  --error: #e07a7a;
+  --btn-blue: #3b78e7;
+  --btn-blue-hover: #2f66cc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.modal {
+  position: relative;
+  width: 340px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 26px 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+/* OTP boxes */
+.otp-input-wrap {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.otp-box {
+  width: 42px;
+  height: 48px;
+  padding: 0;
+  text-align: center;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  -moz-appearance: textfield;
+}
+
+.otp-box::-webkit-outer-spin-button,
+.otp-box::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.otp-box::placeholder {
+  color: #5b5f6b;
+}
+
+.otp-box:focus {
+  border-color: var(--link);
+}
+
+.otp-box:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.field.has-error .otp-box {
+  border-color: var(--border-error);
+}
+
+/* Generic inputs (excludes OTP boxes, which are styled above) */
+input:not(.otp-box) {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 12px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+input:not(.otp-box)::placeholder {
+  color: #5b5f6b;
+}
+
+input:not(.otp-box):focus {
+  border-color: var(--link);
+}
+
+/* Primary button */
+.recovery-btn {
+  width: 100%;
+  background: var(--btn-blue);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.recovery-btn:hover {
+  background: var(--btn-blue-hover);
+}
+
+.recovery-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Timer */
+.otp-timer {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.otp-timer.expiring {
+  color: var(--error);
+}
+
+/* Resend */
+.resend-wrap {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.resend-link {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 4px;
+  color: var(--link);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.resend-link:hover {
+  text-decoration: underline;
+}
+
+/* Divider + back link */
+.divider-line {
+  height: 1px;
+  background: var(--border);
+  border: none;
+  margin: 20px 0 16px;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: var(--link);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 150;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
