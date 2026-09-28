@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/css/user/home.css">
+    <link rel="stylesheet" href="/css/user/category.css">
+    <link rel="stylesheet" href="/css/user/mainCart.css">
+
+    <title>OG_CARS - Your Cart</title>
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">OG_CARS</div>
+    <div class="nav-links">
+      <a class="nav-link" href="/home">Shop</a>
+      <a class="nav-link" href="/category">Categories</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link" href="#">Faq</a>
+    </div>
+    <div class="nav-actions">
+      <div class="icon-buttons">
+        <button class="icon-btn" aria-label="Search">
+          <span class="material-symbols-outlined">search</span>
+        </button>
+        <a href="/user/wishlist" class="icon-btn" aria-label="Wishlist">
+          <span class="material-symbols-outlined">favorite_border</span>
+        </a>
+        <button class="icon-btn icon-btn-cart" aria-label="Cart">
+          <span class="material-symbols-outlined">shopping_cart</span>
+          <span class="cart-dot" id="nav-cart-dot"></span>
+        </button>
+        <a href="/profile" class="icon-btn" aria-label="Account" id="profile-button">
+          <span class="material-symbols-outlined">person</span>
+        </a>
+        <button class="icon-btn menu-btn" aria-label="Menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+
+  <!-- Page Header / Breadcrumb -->
+  <section class="cat-page-header">
+    <div class="cat-page-header-inner">
+      <p class="cat-breadcrumb">
+        <a href="/home">HOME </a>
+        
+        <span class="material-symbols-outlined">chevron_right</span>
+        YOUR CART
+      </p>
+      <h1 class="cat-page-title">YOUR <span class="accent">CART</span></h1>
+    </div>
+  </section>
+
+  <!-- Cart Layout: Items + Summary -->
+  <section class="cart-layout">
+    <div class="cart-layout-inner">
+
+      <!-- Cart Items -->
+      <div class="cart-panel">
+
+        <!-- Table header (desktop only) -->
+        <div class="cart-table-head">
+          <span class="col-product">PRODUCT</span>
+          <span class="col-price">PRICE</span>
+          <span class="col-qty">QUANTITY</span>
+          <span class="col-total">TOTAL</span>
+          <span class="col-remove"></span>
+        </div>
+
+        <!-- Items are rendered by cart.js.
+             With EJS you can server-render them instead (see notes). -->
+        <div class="cart-items" id="cart-items"></div>
+
+        <!-- Empty state -->
+        <div class="cart-empty" id="cart-empty" hidden>
+          <span class="material-symbols-outlined cart-empty-icon">shopping_cart</span>
+          <h2 class="cart-empty-title">Your cart is empty</h2>
+          <p class="cart-empty-text">Add a product and it will show up here.</p>
+          <a class="btn btn-primary" href="/category">
+            <span class="btn-inner">BROWSE PRODUCTS</span>
+          </a>
+        </div>
+
+        <p class="cart-secure">
+          <span class="material-symbols-outlined">verified_user</span>
+          Secure Shopping Guarantee
+        </p>
+      </div>
+
+      <!-- Order Summary -->
+      <aside class="cart-summary-wrap">
+        <div class="summary-card glass-card">
+          <h2 class="summary-title">ORDER SUMMARY</h2>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="summary-subtotal">₹0</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span id="summary-shipping">Free</span>
+          </div>
+
+          <div class="summary-total">
+            <span class="summary-total-label">TOTAL:</span>
+            <span class="summary-total-value" id="summary-total">₹0</span>
+          </div>
+
+          <a class="btn btn-checkout" id="checkout-btn" href="/checkout">
+            <span class="btn-inner">
+              PROCEED TO CHECKOUT
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </span>
+          </a>
+          <a class="btn btn-continue" href="/category">
+            <span class="btn-inner">CONTINUE SHOPPING</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="cart-badges-section">
+    <div class="cart-badges">
+      <div class="cart-badge">
+        <span class="material-symbols-outlined">local_shipping</span>
+        <span>FREE SHIPPING</span>
+      </div>
+      <div class="cart-badge">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <span>SECURE PACKAGING</span>
+      </div>
+      <div class="cart-badge">
+        <span class="material-symbols-outlined">verified</span>
+        <span>QUALITY ASSURED</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- You May Also Like — uses the SAME product card as the category page -->
+  <section class="cart-suggest">
+    <div class="cart-suggest-inner">
+      <h2 class="cart-suggest-title">YOU MAY ALSO <span class="accent">LIKE</span></h2>
+
+      <!-- "product-grid cat-product-grid" = exact same grid + card styles as category.css -->
+      <div class="product-grid cat-product-grid" id="suggest-grid">
+
+        <% if (relatedProduct.length) { %>
+        <% relatedProduct.forEach(product => { %>
+        <div class="product-card">
+          <div class="product-media">
+            <img class="product-img" alt="" src="<%= product.images[0]%>">
+          </div>  
+          <div class="product-body cat-product-body">
+            <h3 class="product-name cat-product-name"><%= product.productName%></h3>
+            <div class="price-row">
+              <span class="price">₹<%= product.price%></span>
+            </div>
+            <a class="btn btn-view-details" href="/product/<%= product._id%>">VIEW DETAILS</a>
+          </div>
+        </div>
+       <% }) %>
+       <% } %>
+       
+
+       
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">OG_CARS</div>
+      <p class="footer-desc">
+        Engineering precision instruments for the world's most demanding RC pilots and racers.
+      </p>
+    </div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">Privacy Policy</a>
+      <a class="footer-link" href="#">Terms of Service</a>
+      <a class="footer-link" href="#">Shipping Info</a>
+      <a class="footer-link" href="#">Track Order</a>
+    </div>
+    <div class="footer-social">
+      <div class="social-btn" aria-label="Share">
+        <span class="material-symbols-outlined">share</span>
+      </div>
+      <div class="social-btn" aria-label="Contact">
+        <span class="material-symbols-outlined">alternate_email</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 OG_CARS PRECISION RC. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+
+<script src="/js/user/mainCart.js"></script>
+</body>
+</html>
