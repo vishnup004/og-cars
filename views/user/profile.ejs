@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/user/profile.css">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="dashboard">
+ 
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <a href="/home" class="back-link">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      BACK TO DASHBOARD
+    </a>
+ 
+    <nav class="side-nav">  
+      <a href="#" class="nav-item active" data-panel="profile">
+        <span class="nav-bar"></span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        USER PROFILE
+      </a>
+      <a href="/change-password" class="nav-item" data-panel="password">
+        <span class="nav-bar"></span>
+        <svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.5 12.5L20 3M20 3v5M20 3h-5"/></svg>
+        CHANGE PASSWORD
+      </a>
+      <a href="/address" class="nav-item" data-panel="address">
+        <span class="nav-bar"></span>
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        USER ADDRESS
+      </a>
+      <a href="/mainCart" class="nav-item" data-panel="orders">
+        <span class="nav-bar"></span>
+        <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
+        VIEW ORDERS
+      </a>
+      <a href="#" class="nav-item" data-panel="watchlist">
+        <span class="nav-bar nav-bar-pink"></span>
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8.3 2 4.5 5.7 4c2-.3 3.9.7 6.3 3.2C14.4 4.7 16.3 3.7 18.3 4c3.7.5 5.3 4.3 3.7 7.7C19.5 16.1 12 21 12 21z"/></svg>
+        WATCHLIST
+      </a>
+      <a href="#" class="nav-item" data-panel="wallet">
+        <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20M17 15h1"/></svg>
+        WALLET
+      </a>
+      <!-- <a href="/session/destroy" class="nav-item" data-panel="logout"> -->
+        <a href="#" class="nav-item" data-panel="logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        LOGOUT
+      </a>
+    </nav>
+  </aside>
+ 
+  <!-- ===== MAIN PANEL ===== -->
+  <main class="panel">
+    <h1 class="panel-title">PROFILE</h1>
+    <div class="panel-divider"></div>
+
+    <% if (locals.success_msg) { %>
+      <div class="success-msg"><%= success_msg %></div>
+    <% } %>
+    <% if (locals.error_msg) { %>
+      <div class="error-msg"><%= error_msg %></div>
+    <% } %>
+
+    <form class="profile-form" id="profileForm" action="/profile/upload" method="post" enctype="multipart/form-data">
+ 
+      <!-- Avatar -->
+      <div class="avatar-block">
+        <div class="avatar-wrap">
+          <div class="avatar-circle" id="avatarCircle">
+            <img id="avatarImg" alt="Profile Image" hidden>
+            <span id="avatarInitials">
+              <%= value.name ? value.name.charAt(0).toUpperCase() : "" %>
+            </span>
+          </div>
+          
+            <input type="file" name="profileImage" id="avatarInput" accept="image/*">
+            <button type="button" class="avatar-upload-btn" id="avatarUploadBtn" aria-label="Upload avatar">
+              <svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+            </button>
+
+        </div>
+        <p class="avatar-caption">PILOT IDENTIFICATION AVATAR</p>
+      </div>
+ 
+      <!-- Fields row 1 -->
+      <div class="field-row">
+        <div class="field-group">
+          <label for="fullName">RACER INTEL: FULL NAME</label>
+          <input type="text" id="fullName" name="fullName" value="<%= value.name %>" readonly>
+        </div>
+ 
+        <div class="field-group">
+          <label for="phone">COMMS: PHONE NUMBER</label>
+          <div class="phone-input">
+            <span class="phone-code">+91</span>
+            <input type="tel" id="phone" name="phone" value="<%= value.phoneNumber || "" %>" readonly>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Fields row 2 -->
+      <div class="field-row single">
+        <div class="field-group">
+          <label for="email">DIGITAL SIGNATURE: EMAIL ADDRESS</label>
+          <div class="locked-input">
+            <input type="email" id="email" name="email" value="<%= value.email %>" readonly>
+            <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="form-footer">
+        <button type="button" class="btn-save" id="editOpenBtn">EDIT PROFILES</button>
+      </div>
+ 
+    </form>
+  </main>
+ 
+</div>
+ 
+<!-- ===== EDIT PROFILE MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <h2 id="modalTitle">EDIT PROFILE</h2>
+      <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+ 
+    <form class="modal-form" id="modalForm" action="/edit-profile?_method=PATCH" method="POST">
+      <div class="field-group">
+        <label for="modalFullName">FULL NAME</label>
+        <input type="text" id="modalFullName" name="name">
+      </div>
+ 
+      <div class="field-group">
+        <label for="modalPhone">PHONE NUMBER</label>
+        <div class="phone-input">
+          <span class="phone-code">+91</span>
+          <input type="tel" id="modalPhone" name="phone">
+        </div>
+      </div>
+ 
+      <div class="field-group">
+        <label for="modalEmail">EMAIL ADDRESS</label>
+        <input type="email" id="modalEmail" name="email">
+      </div>
+ 
+      <p class="modal-error" id="modalError"></p>
+ 
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" id="modalCancelBtn">CANCEL</button>
+        <button type="submit" class="btn-save">SAVE CHANGES</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== OTP VERIFICATION MODAL ===== -->
+<div class="modal-overlay <% if (locals.showOtpModal) { %>show<% } %>" id="otpModalOverlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="otpModalTitle">
+    <div class="modal-header">
+      <h2 id="otpModalTitle">VERIFY NEW EMAIL</h2>
+      <button type="button" class="modal-close" id="otpModalCloseBtn" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form class="modal-form" id="otpForm" action="/change/email/otp" method="POST">
+      <p class="modal-subtitle">An OTP has been sent to your new email address. Please enter it below to confirm your changes.</p>
+
+      <div class="field-group">
+        <label for="otpInput">ENTER 6-DIGIT OTP</label>
+        <input type="text" id="otpInput" name="otp" maxlength="6" placeholder="Enter otp" required autocomplete="on">
+      </div>
+
+      <p class="modal-error" id="otpModalError"><%= locals.otpError || "" %></p>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" id="otpModalCancelBtn">CANCEL</button>
+        <button type="submit" class="btn-save">VERIFY & SAVE</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- =========================================================
+     LOGOUT CONFIRM MODAL
+========================================================== -->
+
+<div class="modal-overlay" id="logoutModalOverlay">
+    <div class="modal-box modal-danger" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+        <!-- HEADER -->
+        <div class="modal-header">
+            <h2 id="logoutModalTitle">
+                LOGOUT
+            </h2>
+            <button type="button" class="modal-close" id="logoutModalCloseBtn" aria-label="Close">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <!-- MESSAGE -->
+        <p class="modal-danger-text">
+            Are you sure you want to logout from your account?
+        </p>
+        <!-- LOGOUT FORM -->
+        <form id="logoutForm" action="/logout" method="POST">
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" id="logoutModalCancelBtn">
+                    CANCEL
+                </button>
+                <button
+                    type="submit"
+                    class="btn-save btn-delete-confirm">
+                    LOGOUT
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/user/profile.js"></script>
+</body>
+</html>
