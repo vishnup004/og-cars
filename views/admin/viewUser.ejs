@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OG_CARS ADMIN — User Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/admin/viewUser.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <h1>OG_CARS ADMIN</h1>
+      <p>MANAGEMENT HUB</p>
+    </div>
+
+    <nav class="nav">
+      <a href="/admin/home" class="nav-link" data-view="dashboard">
+        <span class="nav-icon"></span> Dashboard
+      </a>
+      <a href="/admin/product" class="nav-link" data-view="products">
+        <span class="nav-icon"></span> Products
+      </a>
+      <a href="/admin/category" class="nav-link" data-view="categories">
+        <span class="nav-icon"></span> Categories
+      </a>
+      <a href="/admin/orders" class="nav-link" data-view="orders">
+        <span class="nav-icon"></span> Orders
+      </a>
+      <a href="/admin/user" class="nav-link active" data-view="users">
+        <span class="nav-icon"></span> Users
+      </a>
+      <a href="/admin/offer" class="nav-link" data-view="offer">
+        <span class="nav-icon"></span> Offer
+      </a>
+      <a href="/admin/coupons" class="nav-link" data-view="coupons">
+        <span class="nav-icon"></span> Coupons
+      </a>
+      <a href="/admin/profile" class="nav-link" data-view="profile">
+        <span class="nav-icon"></span> Profile
+      </a>
+    </nav>
+
+    <div class="nav-bottom">
+      <a href="/logout" class="nav-link nav-link-danger" data-view="logout">
+        <span class="nav-icon">⏻</span> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">☰</button>
+      <div>
+        <h2>User Management</h2>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- SEARCH / FILTER FORM -->
+      <form class="toolbar" id="filterForm" method="GET" action="/admin/user">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            name="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search by name or email..."
+            autocomplete="off"
+            value="<%= search || '' %>"
+          >
+          <button
+            type="button"
+            id="clearBtn"
+            class="clear-btn"
+            aria-label="Clear search"
+            onclick="document.getElementById('searchInput').value=''; document.getElementById('filterForm').submit();"
+          >✕</button>
+        </div>
+        <input type="hidden" name="page" id="pageInput" value="1">
+        <button type="submit" class="search-submit-btn">Search</button>
+      </form>
+
+      <!-- USERS TABLE -->
+      <section class="panel table-panel">
+        <div class="table-scroll">
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Joined at</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <% if (users.length === 0) { %>
+                <tr>
+                  <td colspan="5" class="text-center">No users found</td>
+                </tr>
+              <% } else { %>
+                <% users.forEach(user => { %>
+                  <tr>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td>
+                      <span class="status-badge <%= user.status == 'blocked' ? 'status-blocked' : 'status-active' %>">
+                        <%= user.status == "blocked" ? 'blocked' : 'active' %>
+                      </span>
+                    </td>
+                    <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+                    <td>  
+                      <% if (user.status === "blocked") { %>
+
+                        <button
+                          class="action-btn unblock-btn" data-id="<%= user._id %>">
+                          Unblock
+                        </button>
+
+                      <% } else { %>
+
+                        <button
+                          class="action-btn block-btn" data-id="<%= user._id %>">
+                          Block
+                        </button>
+
+                      <% } %>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-bar">
+          <span class="pagination-info" id="paginationInfo">
+            <% if (totalUsers > 0) { %>
+              Showing <%= (currentPage - 1) * limit + 1 %>–<%= Math.min(currentPage * limit, totalUsers) %> of <%= totalUsers %>
+            <% } else { %>
+              Showing 0 of 0
+            <% } %>
+          </span>
+
+          <div class="pagination-controls" id="paginationControls">
+            <% if (currentPage > 1) { %>
+              <a href="/admin/user?page=<%= currentPage - 1 %>&search=<%= search || '' %>" class="page-btn">Prev</a>
+            <% } %>
+
+            <% for (let i = 1; i <= totalPages; i++) { %>
+              <a
+                href="/admin/user?page=<%= i %>&search=<%= search || '' %>"
+                class="page-btn <%= i === currentPage ? 'active' : '' %>"
+              ><%= i %></a>
+            <% } %>
+
+            <% if (currentPage < totalPages) { %>
+              <a href="/admin/user?page=<%= currentPage + 1 %>&search=<%= search || '' %>" class="page-btn">Next</a>
+            <% } %>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUMMARY CARDS -->
+      <section class="summary-grid">
+        <div class="panel summary-card">
+          <div class="summary-icon">◫</div>
+          <div>
+            <span class="summary-label">Total users</span>
+            <span class="summary-value"><%= totalUsers %></span>
+          </div>
+        </div>
+        <div class="panel summary-card">
+          <div class="summary-icon summary-icon-danger">⛔</div>
+          <div>
+            <span class="summary-label">Blocked users</span>
+            <span class="summary-value danger"><%= blockedUsers %></span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/admin/viewUser.js"></script>
+</body>
+</html>

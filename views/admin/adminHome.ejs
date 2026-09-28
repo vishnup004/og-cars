@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OG_CARS ADMIN — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/admin/adminHome.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <h1>OG_CARS ADMIN</h1>
+      <p>MANAGEMENT HUB</p>
+    </div>
+
+    <nav class="nav">
+      <a href="/admin/home" class="nav-link active" data-view="dashboard">
+        <span class="nav-icon"></span> Dashboard
+      </a>
+      <a href="/admin/product" class="nav-link" data-view="products">
+        <span class="nav-icon"></span> Products
+      </a>
+      <a href="/admin/category" class="nav-link" data-view="categories">
+        <span class="nav-icon"></span> Categories
+      </a>
+      <a href="#" class="nav-link" data-view="orders">
+        <span class="nav-icon"></span> Orders
+      </a>
+      <a href="/admin/user" class="nav-link" data-view="users">
+        <span class="nav-icon"></span> Users
+      </a>
+      <a href="/admin/offer" class="nav-link" data-view="offer">
+        <span class="nav-icon"></span> Offer
+      </a>
+      <a href="#" class="nav-link" data-view="coupons">
+        <span class="nav-icon"></span> Coupons
+      </a>
+      <a href="#" class="nav-link" data-view="profile">
+        <span class="nav-icon"></span> Profile
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <!-- <div class="main"> -->
+
+    <!-- TOPBAR -->
+    <!-- <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">☰</button>
+      <div>
+        <p class="eyebrow" id="dateLabel">—</p>
+        <h2>Dashboard overview</h2>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+          🔔<span class="notif-dot"></span>
+        </button>
+        <div class="admin-chip">
+          <div class="avatar">OG</div>
+          <div class="admin-meta">
+            <span class="admin-name">OG Cars Admin</span>
+            <span class="admin-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header> -->
+
+    <!-- CONTENT -->
+    <!-- <main class="content"> -->
+
+      <!-- STAT CARDS -->
+      <!-- <section class="stats-grid" id="statsGrid"></section> -->
+
+      <!-- MIDDLE ROW -->
+      <!-- <section class="mid-grid">
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Recent orders</h3>
+            <button class="link-btn" id="viewAllOrders">View all</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Vehicle</th>
+                  <th>Customer</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
+        </div> -->
+
+        <!-- <div class="panel">
+          <div class="panel-head">
+            <h3>Quick actions</h3>
+          </div>
+          <div class="quick-actions">
+            <button class="qa-btn" data-action="add-product">
+              <span class="qa-icon">＋</span><span>Add vehicle</span>
+            </button>
+            <button class="qa-btn" data-action="new-offer">
+              <span class="qa-icon">🏷</span><span>New offer</span>
+            </button>
+            <button class="qa-btn" data-action="new-coupon">
+              <span class="qa-icon">▭</span><span>New coupon</span>
+            </button>
+            <button class="qa-btn" data-action="add-user">
+              <span class="qa-icon">◫</span><span>Add user</span>
+            </button>
+          </div>
+
+          <div class="mini-status">
+            <div class="mini-status-row">
+              <span>Inventory synced</span>
+              <span class="status-pill status-ok">Operational</span>
+            </div>
+            <div class="mini-status-row">
+              <span>Storage used</span>
+              <span class="status-text">41.2 GB / 100 GB</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="width:41.2%"></div></div>
+          </div>
+        </div>
+
+      </section> -->
+
+      <!-- LOWER ROW -->
+      <!-- <section class="mid-grid">
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Top listed vehicles</h3>
+            <button class="link-btn" id="viewAllProducts">View all</button>
+          </div>
+          <ul class="product-list" id="productList"></ul>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Recent activity</h3>
+          </div>
+          <ul class="activity-list" id="activityList"></ul>
+        </div>
+
+      </section>
+
+    </main>
+  </div> -->
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/admin/adminHome.js"></script>
+</body>
+</html>

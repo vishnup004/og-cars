@@ -1,0 +1,664 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/css/admin/product.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css" />
+      <title>Products</title>
+  </head>
+  <body>
+      
+    <div class="shell">
+  
+      <!-- ===== SIDEBAR ===== -->
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <h1>OG_CARS Admin</h1>
+          <p>CONTROL PANEL</p>
+        </div>
+  
+        <nav class="nav">
+          <a href="/admin/home" class="nav-link" data-view="dashboard">
+          <span class="nav-icon"></span> Dashboard
+        </a>
+        <a href="/admin/product" class="nav-link active" data-view="products">
+          <span class="nav-icon"></span> Products
+        </a>
+        <a href="/admin/category" class="nav-link" data-view="categories">
+          <span class="nav-icon"></span> Categories
+        </a>
+        <a href="/admin/orders" class="nav-link" data-view="orders">
+          <span class="nav-icon"></span> Orders
+        </a>
+        <a href="/admin/user" class="nav-link" data-view="users">
+          <span class="nav-icon"></span> Users
+        </a>
+        <a href="/admin/offer" class="nav-link" data-view="offer">
+          <span class="nav-icon"></span> Offer
+        </a>
+        <a href="/admin/coupons" class="nav-link" data-view="coupons">
+          <span class="nav-icon"></span> Coupons
+        </a>
+        <a href="/admin/profile" class="nav-link" data-view="profile">
+          <span class="nav-icon"></span> Profile
+        </a>  
+        </nav>
+  
+        <div class="nav-bottom">
+          <a href="/admin/settings" class="nav-link">
+            <span class="nav-icon">⚙️</span> Settings
+          </a>
+          <a href="/admin/logout" class="nav-link nav-link-danger">
+            <span class="nav-icon">🚪</span> Logout
+          </a>
+        </div>
+      </aside>
+  
+      <!-- ===== MAIN ===== -->
+      <div class="main">
+        <header class="topbar">
+          <button class="menu-btn" id="menuBtn">☰</button>
+          <h2>Products</h2>
+        </header>
+  
+        <main class="content">
+          <div class="page-intro">
+            <p>Create, list/unlist, and manage the products shown in your storefront.</p>
+            <a href="/admin/product/add-new" class="add-category-btn">
+              <span>+</span> Add Product
+            </a>
+          </div>
+  
+          <div class="panel">
+            <div class="panel-header">
+              <h3>All Products</h3>
+  
+              <!-- <div class="panel-header-actions">
+                <form class="toolbar" id="searchForm" method="GET" action="/admin/product">
+                  <div class="search-wrap">
+                    <span class="search-icon">🔍</span>
+                    <input
+                      type="text"
+                      class="search-input"
+                      id="searchInput"
+                      name="search"
+                      placeholder="Search products..."
+                      value=""
+                    >
+                    <button type="button" class="clear-btn" id="clearSearchBtn" title="Clear search">✕</button>
+                  </div>
+  
+                  <input type="hidden" id="pageInput" name="page" value="1">
+                  <input type="hidden" id="minPriceInput" name="minPrice" value="">
+                  <input type="hidden" id="maxPriceInput" name="maxPrice" value="">
+                  <input type="hidden" id="brandInput" name="brand" value=""> -->
+  
+                  <!-- <button type="button" class="search-submit-btn" id="searchSubmitBtn">Search</button> -->
+  
+                  <!-- <div class="filter-wrap">
+                    <button type="button" class="filter-btn" id="filterToggleBtn">
+                      Filter
+                      <span class="filter-count" id="filterCount" style="display:none;">0</span>
+                    </button>
+  
+                    <div class="filter-panel" id="filterPanel">
+                      <div class="filter-section" id="priceRangeGroup">
+                        <span class="filter-section-title">Price Range</span>
+                        <div class="filter-price-inputs">
+                          <input type="number" id="fMinPrice" placeholder="Min">
+                          <span class="filter-price-sep">–</span>
+                          <input type="number" id="fMaxPrice" placeholder="Max">
+                        </div>
+                        <label class="filter-option">
+                          <input type="radio" name="priceRangePreset" value="0-1000"> Under ₹1,000
+                        </label>
+                        <label class="filter-option">
+                          <input type="radio" name="priceRangePreset" value="1000-5000"> ₹1,000 – ₹5,000
+                        </label>
+                        <label class="filter-option">
+                          <input type="radio" name="priceRangePreset" value="5000-10000"> ₹5,000 – ₹10,000
+                        </label>
+                        <label class="filter-option">
+                          <input type="radio" name="priceRangePreset" value="10000-"> ₹10,000+
+                        </label>
+                      </div>
+  
+                      <div class="filter-section" id="brandGroup">
+                        <span class="filter-section-title">Brand</span>
+                        <div class="filter-checkbox-group">
+                          <label class="filter-option">
+                            <input type="checkbox" name="fBrand" value="Traxxas"> Traxxas
+                          </label>
+                          <label class="filter-option">
+                            <input type="checkbox" name="fBrand" value="Tamiya"> Tamiya
+                          </label>
+                          <label class="filter-option">
+                            <input type="checkbox" name="fBrand" value="HPI Racing"> HPI Racing
+                          </label>
+                          <label class="filter-option">
+                            <input type="checkbox" name="fBrand" value="Losi"> Losi
+                          </label>
+                          <label class="filter-option">
+                            <input type="checkbox" name="fBrand" value="Arrma"> Arrma
+                          </label>
+                        </div>
+                      </div>
+  
+                      <div class="filter-panel-actions">
+                        <button type="button" class="modal-btn modal-btn-cancel" id="filterClearBtn">Clear</button>
+                        <button type="button" class="modal-btn modal-btn-save" id="filterApplyBtn">Apply</button>
+                      </div>
+                    </div>
+                  </div> -->
+                <!-- </form>
+              </div> -->
+            </div>
+  
+            <!-- Active filter chips (populated client-side from the URL on load) -->
+            <div class="active-filter-chips" id="activeFilterChips"></div>
+  
+            <!-- ===== PRODUCT LIST (sample rows — replace with real data,
+                e.g. by having product-admin.js fetch and render on load) ===== -->
+
+            <% if (products) { %>
+              <% products.forEach( product => {%>
+            <div class="category-list" id="categoryList">
+
+              <div class="category-row">
+                <div class="cat-cell">
+                  <img class="cat-thumb" src="<%= product.images[0]%>" alt="">
+                  <div>
+                    <span class="cat-name"><%= product.productName%></span>
+                    <span class="cell-desc"><%= product.discription%></span>
+                  </div>
+                </div>
+  
+                <div class="row-products">
+                  <span class="row-products-label">Price</span>
+                  <span class="row-products-count"><%= product.price%></span>
+                </div>
+
+                <div class="row-products">
+                  <span class="row-products-label">Stock</span>
+                  <span class="row-products-count"><%= product.variant?.reduce((total, item) => total + Number(item.stock || 0), 0) || 0 %></span>
+                </div>
+  
+                <span class="status-badge active" data-status-id="<%= product._id %>">
+                  <%= product.status ? "list" : "unlist" %>
+                </span>
+  
+                <div class="actions-cell">
+                  <button
+                    class="icon-btn edit-btn"
+                    title="Edit"
+                    data-id="<%= product._id%>"
+                    data-name="<%= product.productName%>"
+                    data-description="<%= product.discription%>"
+                    data-image="<%= product.images[0] ? product.images[0] : '' %>"
+                    data-image2="<%= product.images[1] ? product.images[1] : '' %>"
+                    data-image3="<%= product.images[2] ? product.images[2] : '' %>"
+                   
+                    data-category="<%= product.category %>"
+                    data-price="<%= product.price %>"
+                    data-stock="<%= product.stock %>"
+                    data-color="<%= product.colores %>"
+                    data-motor="<%= product.motorType %>"
+                    data-chassis="<%= product.chassisMaterial %>"
+                    data-scale="<%= product.scale %>"
+                  >✏️</button>
+  
+                  <button class="icon-btn delete-btn" title="Delete" data-id="<%= product._id %>" data-name="<%= product.name %>">🗑️</button>
+
+                  <button class="block-btn" title="Unlist product" data-id="<%= product._id%>"></button>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+            <% } %>
+  
+            <!-- ===== PAGINATION (sample) ===== -->
+            <div class="pagination-bar">
+              <span class="pagination-info"></span>
+              <div class="pagination-controls">
+                
+                <a class="page-btn <%= currentPage === 1 ? 'disabled' : '' %>" href="/admin/product?search=&page=<%= currentPage > 1 ? currentPage - 1 : currentPage %>" aria-disabled="true">‹</a>
+                
+                <% for(let i = 1; i <=  totalPages; i++) { %>
+                  <a class="page-btn <%= i === currentPage === i ? 'active' : '' %>" href="/admin/product?search=&page=<%= i%>"><%= i%></a>
+                  <% } %>
+                  
+                <a class="page-btn <%= currentPage === totalPages ? 'disabled' : '' %>" href="/admin/product?search=&page=<%= totalPages > currentPage ? currentPage + 1 : currentPage %>">›</a>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  
+    <!-- ===== ADD / EDIT MODAL ===== -->
+    <div class="modal-overlay" id="categoryModalOverlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalTitle">Add Product</h3>
+          <button class="modal-close-btn" id="closeModalBtn">✕</button>
+        </div>
+  
+        <form class="modal-form" id="categoryForm" enctype="multipart/form-data">
+          <input type="hidden" id="categoryId" name="productId" value="">
+  
+          <div class="form-group">
+            <label for="categoryName">Name</label>
+            <input type="text" id="categoryName" name="productName" placeholder="e.g. TRX-4 Trail Crawler">
+            <span class="field-error" id="nameError"></span>
+          </div>
+  
+          <div class="form-group">
+            <label for="categoryDescription">Description</label>
+            <textarea id="categoryDescription" name="productDescription" rows="3" placeholder="Short description (optional)"></textarea>
+            <span class="field-error" id="descriptionError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="productCategory">Category</label>
+            <select id="productCategory" name="productCategory">
+              <option value="">Select a category</option>
+              <option value="Off-Road Buggies">Off-Road Buggies</option>
+              <option value="On-Road Drift">On-Road Drift</option>
+              <option value="Rock Crawlers">Rock Crawlers</option>
+              <option value="Monster Trucks">Monster Trucks</option>
+            </select>
+            <span class="field-error" id="categoryError"></span>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="productPrice">Price (₹)</label>
+              <input type="number" id="productPrice" name="productPrice" min="0" placeholder="e.g. 12999">
+              <span class="field-error" id="priceError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="productStock">Stock</label>
+              <input type="number" id="productStock" name="productStock" min="0" placeholder="e.g. 20">
+              <span class="field-error" id="stockError"></span>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label>Images</label>
+            <div class="image-upload-grid">
+
+    <!-- Image 1 -->
+    <div class="image-upload-slot">
+      <div class="image-preview-wrapper">
+        <img
+          class="image-preview"
+          id="imagePreview1"
+          src=""
+          alt="Product Image 1"
+        >
+      </div>
+
+      <label class="image-upload-btn" for="categoryImage1">
+        Choose Image 1
+      </label>
+
+      <input
+        type="file"
+        id="categoryImage1"
+        name="productImage1"
+        accept="image/jpeg,image/png,image/webp,image/avif"
+      >
+
+      <button
+        type="button"
+        class="crop-image-btn"
+        data-index="0"
+      >
+        Crop Image
+      </button>
+    </div>
+
+
+    <!-- Image 2 -->
+    <div class="image-upload-slot">
+      <div class="image-preview-wrapper">
+        <img
+          class="image-preview"
+          id="imagePreview2"
+          src=""
+          alt="Product Image 2"
+        >
+      </div>
+
+      <label class="image-upload-btn" for="categoryImage2">
+        Choose Image 2
+      </label>
+
+      <input
+        type="file"
+        id="categoryImage2"
+        name="productImage2"
+        accept="image/jpeg,image/png,image/webp,image/avif"
+      >
+
+      <button
+        type="button"
+        class="crop-image-btn"
+        data-index="1"
+      >
+        Crop Image
+      </button>
+    </div>
+
+
+    <!-- Image 3 -->
+    <div class="image-upload-slot">
+      <div class="image-preview-wrapper">
+        <img
+          class="image-preview"
+          id="imagePreview3"
+          src=""
+          alt="Product Image 3"
+        >
+      </div>
+
+      <label class="image-upload-btn" for="categoryImage3">
+        Choose Image 3
+      </label>
+
+      <input
+        type="file"
+        id="categoryImage3"
+        name="productImage3"
+        accept="image/jpeg,image/png,image/webp,image/avif"
+      >
+
+      <button
+        type="button"
+        class="crop-image-btn"
+        data-index="2"
+      >
+        Crop Image
+      </button>
+    </div>
+
+    <!-- Image 4 -->
+    <!-- <div class="image-upload-slot">
+      <div class="image-preview-wrapper">
+        <img
+          class="image-preview"
+          id="imagePreview4"
+          src=""
+          alt="Product Image 4"
+        >
+      </div>
+
+      <label class="image-upload-btn" for="categoryImage4">
+        Choose Image 4
+      </label>
+
+      <input
+        type="file"
+        id="categoryImage4"
+        name="productImage4"
+        accept="image/jpeg,image/png,image/webp,image/avif"
+      >
+
+      <button
+        type="button"
+        class="crop-image-btn"
+        data-index="3"
+      >
+        Crop Image
+      </button>
+    </div> -->
+
+    <!-- Image 5
+    <div class="image-upload-slot">
+      <div class="image-preview-wrapper">
+        <img
+          class="image-preview"
+          id="imagePreview5"
+          src=""
+          alt="Product Image 5"
+        >
+      </div>
+
+      <label class="image-upload-btn" for="categoryImage5">
+        Choose Image 5
+      </label>
+
+      <input
+        type="file"
+        id="categoryImage5"
+        name="productImage5"
+        accept="image/jpeg,image/png,image/webp,image/avif"
+      >
+
+      <button
+        type="button"
+        class="crop-image-btn"
+        data-index="4"
+      >
+        Crop Image
+      </button>
+    </div> -->
+
+    <!-- Image 6 -->
+    <!-- <div class="image-upload-slot">
+      <div class="image-preview-wrapper">
+        <img
+          class="image-preview"
+          id="imagePreview6"
+          src=""
+          alt="Product Image 6"
+        >
+      </div>
+
+      <label class="image-upload-btn" for="categoryImage6">
+        Choose Image 6
+      </label>
+
+      <input
+        type="file"
+        id="categoryImage6"
+        name="productImage6"
+        accept="image/jpeg,image/png,image/webp,image/avif"
+      >
+
+      <button
+        type="button"
+        class="crop-image-btn"
+        data-index="5"
+      >
+        Crop Image
+      </button>
+    </div> -->
+
+  </div>
+            <span class="field-error" id="imageError"></span>
+          </div>
+          
+
+          <!-- ===== TECHNICAL VARIANTS ===== -->
+          <div class="form-section">
+            <span class="form-section-title">Technical Variants</span>
+            <div class="form-group-row">
+            <div class="form-group">
+              <label for="colorInput">Colors</label>
+              <div class="color-input-row">
+                <input type="text" id="colorInput" placeholder="e.g. Red">
+                <button type="button" class="modal-btn modal-btn-save" id="addColorBtn">Add</button>
+              </div>
+              <div class="color-tags" id="colorTags"></div>
+              <input type="hidden" id="productColors" name="productColors" value="">
+              <span class="field-error" id="colorError"></span>
+            </div>
+          </div>
+          </div>
+
+          <!-- ===== TECHNICAL SPECIFICATION ===== -->
+          <div class="form-section">
+            <span class="form-section-title">Technical Specification</span>
+            <div class="form-group">
+              <label for="productMotorType">Motor Type</label>
+              <input type="text" id="productMotorType" name="productMotorType" placeholder="e.g. Brushless 3300KV">
+              <span class="field-error" id="motorError"></span>
+            </div>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="productChassisMaterial">Chassis Material</label>
+                <input type="text" id="productChassisMaterial" name="productChassisMaterial" placeholder="e.g. Aluminum">
+                <span class="field-error" id="chassisError"></span>
+              </div>
+              <div class="form-group">
+                <label for="productScale">Scale</label>
+                <select id="productScale" name="productScale">
+                  <option value="">Select scale</option>
+                  <option value="1:8">1:8</option>
+                  <option value="1:10">1:10</option>
+                  <option value="1:12">1:12</option>
+                  <option value="1:16">1:16</option>
+                  <option value="1:24">1:24</option>
+                  <option value="other">Other</option>
+                </select>
+                <span class="field-error" id="scaleError"></span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="modal-actions">
+            <button type="button" class="modal-btn modal-btn-cancel" id="cancelModalBtn">Cancel</button>
+            <button type="submit" class="modal-btn modal-btn-save" id="saveCategoryBtn">Save Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+  <div class="modal-overlay" id="deleteModalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Delete Product</h3>
+
+        <button
+          class="modal-close-btn"
+          id="closeDeleteModalBtn"
+          type="button">✕</button>
+      </div>
+
+      <div class="modal-form">
+        <p>
+          Are you sure you want to delete this product?</p>
+        <p id="deleteCategoryName"></p>
+
+        <input
+          type="hidden"
+          id="deleteCategoryId">
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="modal-btn modal-btn-cancel"
+            id="cancelDeleteBtn">  Cancel</button>
+
+          <button
+            type="button"
+            class="modal-btn modal-btn-save"
+            id="confirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+    <div id="cropModal" class="crop-modal">
+
+    <div class="crop-modal-content">
+
+      <div class="crop-modal-header">
+        <h3>Crop Product Image</h3>
+
+        <button
+          type="button"
+          id="closeCropModal"
+          class="crop-close-btn"
+        >
+          ×
+        </button>
+      </div>
+
+
+      <div class="crop-container">
+        <img id="cropImage" src="" alt="Crop Image">
+      </div>
+
+
+      <div class="crop-controls">
+
+        <button type="button" id="zoomOutBtn">
+          −
+        </button>
+
+        <span id="zoomValue">
+          100%
+        </span>
+
+        <button type="button" id="zoomInBtn">
+          +
+        </button>
+
+        <button type="button" id="rotateLeftBtn">
+          ↶
+        </button>
+
+        <button type="button" id="rotateRightBtn">
+          ↷
+        </button>
+
+        <button type="button" id="resetCropBtn">
+          Reset
+        </button>
+
+      </div>
+
+
+      <div class="crop-actions">
+
+        <button
+          type="button"
+          id="cancelCropBtn"
+          class="cancel-crop-btn"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          id="applyCropBtn"
+          class="apply-crop-btn"
+        >
+          Crop & Resize
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+  
+  <script src="/js/admin/product.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
+  <script>
+    document.addEventListener("click", (event) => {
+      const editButton = event.target.closest(".edit-btn");
+      if (!editButton) return;
+      window.location.href = `/admin/product/edit/${editButton.dataset.id}`;
+    });
+  </script>
+  </body>
+  </html>

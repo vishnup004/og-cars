@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin/offer.css">
+    <title>Offers | OG_CARS Admin</title>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <h1>OG_CARS Admin</h1>
+        <p>CONTROL PANEL</p>
+      </div>
+
+      <nav class="nav">
+        <a href="/admin/home" class="nav-link" data-view="dashboard">
+          <span class="nav-icon"></span> Dashboard
+        </a>
+        <a href="/admin/product" class="nav-link" data-view="products">
+          <span class="nav-icon"></span> Products
+        </a>
+        <a href="/admin/category" class="nav-link" data-view="categories">
+          <span class="nav-icon"></span> Categories
+        </a>
+        <a href="/admin/orders" class="nav-link" data-view="orders">
+          <span class="nav-icon"></span> Orders
+        </a>
+        <a href="/admin/user" class="nav-link" data-view="users">
+          <span class="nav-icon"></span> Users
+        </a>
+        <a href="/admin/offer" class="nav-link" data-view="offer">
+          <span class="nav-icon"></span> Offer
+        </a>
+        <a href="/admin/coupons" class="nav-link" data-view="coupons">
+          <span class="nav-icon"></span> Coupons
+        </a>
+        <a href="/admin/profile" class="nav-link" data-view="profile">
+          <span class="nav-icon"></span> Profile
+        </a>
+      </nav>
+
+      <div class="nav-bottom">
+        <a href="/admin/settings" class="nav-link">
+          <span class="nav-icon">⚙️</span> Settings
+        </a>
+        <a href="/admin/logout" class="nav-link nav-link-danger">
+          <span class="nav-icon">🚪</span> Logout
+        </a>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <h2>Offer Management</h2>
+      </header>
+
+      <main class="content">
+        <div class="page-intro">
+          <p>Create and manage product and category offers shown on your storefront.</p>
+          <button class="add-offer-btn" id="openAddModalBtn">
+            <span>+</span> Create New Offer
+          </button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Offer Repository</h3>
+
+            <div class="panel-header-actions">
+              <form class="toolbar" id="searchForm" method="GET" action="/admin/offer">
+                <div class="search-wrap">
+                  <span class="search-icon">🔍</span>
+                  <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    name="search"
+                    placeholder="Search offers..."
+                    value=""
+                  >
+                  <button type="button" class="clear-btn" id="clearSearchBtn" title="Clear search">✕</button>
+                </div>
+
+                <select class="type-select" id="typeFilter" name="applyTo">
+                  <option value="">All Types</option>
+                  <option value="product">Product</option>
+                  <option value="category">Category</option>
+                </select>
+
+                <input type="hidden" id="pageInput" name="page" value="1">
+
+                <button type="button" class="search-submit-btn" id="searchSubmitBtn">Search</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- ===== OFFER TABLE ===== -->
+          <div class="offer-table">
+            <div class="offer-head">
+              <span class="col-name">Offer name</span>
+              <span class="col-apply">Apply to</span>
+              <span class="col-discount">Discount</span>
+              <span class="col-status">Status</span>
+              <span class="col-expiry">Expiry date</span>
+              <span class="col-actions">Actions</span>
+            </div>
+
+            <% offers.forEach(offer => {  %>
+            <div class="offer-list" id="offerList">
+              <div class="offer-row" data-offer-id="<%= offer._id%>">
+                <div class="col-name">
+                  <span class="offer-name"><%= offer.name%></span>
+                  <span class="offer-desc"><%= offer.description%></span>
+                </div>
+
+                <div class="col-apply">
+                  <span class="tag tag-product"><%= offer.applyTo%></span>
+                  <!-- <span class="target-name">Traxxas Slash 4x4</span> -->
+                </div>
+
+                <div class="col-discount">
+                  <span class="discount-value"><%= offer.discountValue%>%</span>
+                  <span class="discount-type"><%= offer.discountType%></span>
+                </div>
+
+                <div class="col-status">
+                  <span class="status-badge status-active" data-status-id="1"><%= offer.status%></span>
+                </div>
+
+                <div class="col-expiry"><%= offer.endDate%></div>
+
+                <div class="col-actions actions-cell">
+                  <button
+                    class="icon-btn edit-btn"
+                    title="Edit"
+                    data-id="<%= offer._id%>"
+                    data-name="<%= offer.name%>"
+                    data-description="<%= offer.description%>"
+                    data-apply-to="<%= offer.applyTo%>"
+                    data-discount-type="<%= offer.discountType%>"
+                    data-discount-value="<%= offer.dicountValue%>"
+                    data-start="<%= offer.startDate%>"
+                    data-end="<%= offer.endDate%>"
+                  >✏️</button>
+
+                  <button class="icon-btn delete-btn" title="Delete" data-id="<%= offer._id%>" data-name="Summer Nitro Bash">🗑️</button>
+
+                  
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+
+          <!-- ===== PAGINATION ===== -->
+          <div class="pagination-bar" id="paginationBar">
+            <span class="pagination-info" id="paginationInfo">Showing 1–4 of 4 offers</span>
+            <div class="pagination-controls" id="paginationControls">
+              <a class="page-btn disabled" href="#" data-page="1">‹</a>
+              <a class="page-btn active" href="#" data-page="1">1</a>
+              <a class="page-btn disabled" href="#" data-page="1">›</a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== CREATE / EDIT OFFER MODAL ===== -->
+  <div class="modal-overlay" id="offerModalOverlay">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3 id="modalTitle">Create Offer</h3>
+        <button class="modal-close-btn" id="closeModalBtn" type="button">✕</button>
+      </div>
+
+      <form class="modal-form" id="offerForm" novalidate>
+        <input type="hidden" id="offerId" name="offerId" value="">
+
+        <div class="form-group">
+          <label for="offerName">Offer name</label>
+          <input type="text" id="offerName" name="name" placeholder="e.g. Summer Nitro Bash">
+          <span class="field-error" id="nameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="offerDescription">Description</label>
+          <textarea id="offerDescription" name="description" rows="2" placeholder="Short description (optional)"></textarea>
+          <span class="field-error" id="descriptionError"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="applyTo">Apply to</label>
+            <select id="applyTo" name="applyTo">
+              <option value="product">Product</option>
+              <option value="category">Category</option>
+            </select>
+            <span class="field-error" id="applyToError"></span>
+          </div>
+
+          <!-- <div class="form-group">
+            <label for="targetSelect" id="targetLabel">Product</label>
+            <select id="targetSelect" name="target">
+              <option value="">Select a product</option>
+              <option value="p1" data-group="product">Traxxas Slash 4x4</option>
+              <option value="p2" data-group="product">Tamiya TT-02 Kit</option>
+              <option value="p3" data-group="product">Arrma Kraton 6S</option>
+              <option value="c1" data-group="category" hidden>Off-Road Buggies</option>
+              <option value="c2" data-group="category" hidden>Monster Trucks</option>
+              <option value="c3" data-group="category" hidden>Drift Cars</option>
+            </select>
+            <span class="field-error" id="targetError"></span>
+          </div> -->
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="discountType">Discount type</label>
+            <select id="discountType" name="discountType">
+              <option value="percentage">Percentage (%)</option>
+              <option value="fixed">Fixed amount (₹)</option>
+            </select>
+            <span class="field-error" id="discountTypeError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="discountValue" id="discountValueLabel">Discount (%)</label>
+            <input type="number" id="discountValue" name="discountValue" min="1" placeholder="e.g. 20">
+            <span class="field-error" id="discountValueError"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="startDate">Start date</label>
+            <input type="date" id="startDate" name="startDate">
+            <span class="field-error" id="startDateError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="endDate">Expiry date</label>
+            <input type="date" id="endDate" name="endDate">
+            <span class="field-error" id="endDateError"></span>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="modal-btn modal-btn-cancel" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="modal-btn modal-btn-save" id="saveOfferBtn">Save Offer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== DELETE MODAL ===== -->
+  <div class="modal-overlay" id="deleteModalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Delete Offer</h3>
+        <button class="modal-close-btn" id="closeDeleteModalBtn" type="button">✕</button>
+      </div>    
+
+      
+      <div class="modal-form">
+        <p>Are you sure you want to delete this offer?</p>
+        <p class="delete-name" id="deleteOfferName"></p>
+        <input type="hidden" id="deleteOfferId">
+
+        <div class="modal-actions">
+          <button type="button" class="modal-btn modal-btn-cancel" id="cancelDeleteBtn">Cancel</button>
+          <button type="button" class="modal-btn modal-btn-danger" id="confirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+<script src="/js/admin/offer.js"></script>
+</body>
+</html>

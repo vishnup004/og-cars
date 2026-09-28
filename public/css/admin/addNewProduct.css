@@ -1,0 +1,125 @@
+.add-product-page .content {
+  max-width: 1080px;
+  padding: 16px 22px 32px;
+}
+
+.add-product-page .page-intro {
+  margin-bottom: 12px;
+}
+
+.add-product-page .page-intro p {
+  margin: 8px 0;
+}
+
+.add-product-page .panel {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.add-product-page .panel-header {
+  padding: 14px 18px;
+}
+
+.add-product-page .modal-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 14px;
+  padding: 16px 18px;
+}
+
+.add-product-page #productId,
+.add-product-page .form-group-row,
+.add-product-page .form-section,
+.add-product-page .modal-actions {
+  grid-column: 1 / -1;
+}
+
+.add-product-page .form-group,
+.add-product-page .form-section {
+  gap: 5px;
+}
+
+.add-product-page .modal-form > .form-group:has(.image-upload-grid) {
+  grid-column: 1 / -1;
+}
+
+.add-product-page .form-group input[type="text"],
+.add-product-page .form-group input[type="number"],
+.add-product-page .form-group textarea,
+.add-product-page .form-group select,
+.add-product-page .color-input-row input {
+  padding: 8px 10px;
+}
+
+.add-product-page .form-group textarea {
+  min-height: 76px;
+}
+
+.add-product-page .form-section {
+  padding: 11px 12px 3px;
+}
+
+.add-product-page .image-upload-slot {
+  min-width: 0;
+  padding: 12px;
+  gap: 10px;
+}
+
+.add-product-page .image-upload-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.add-product-page .image-preview-wrapper {
+  height: 150px;
+}
+
+.add-product-page .crop-image-btn,
+.add-product-page .image-upload-slot .image-upload-btn {
+  min-height: 40px;
+  padding: 9px 8px;
+  font-size: 12px;
+}
+
+.add-product-page .image-upload-slot .image-upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-product-page .field-error {
+  min-height: 11px;
+}
+
+@media (max-width: 700px) {
+  .add-product-page .content {
+    padding: 14px 14px 28px;
+  }
+
+  .add-product-page .modal-form {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .add-product-page .form-group-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .add-product-page .image-upload-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .add-product-page .image-upload-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .add-product-page .image-preview-wrapper {
+    height: 120px;
+  }
+}

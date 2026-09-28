@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin/product.css">
+    <link rel="stylesheet" href="/css/admin/addNewProduct.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css" />
+    <title><%= typeof product !== "undefined" ? "Edit Product" : "Add Product" %></title>
+</head>
+<body class="add-product-page">
+
+  <div class="shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <h1>OG_CARS Admin</h1>
+        <p>CONTROL PANEL</p>
+      </div>
+
+      <nav class="nav">
+        <a href="/admin/home" class="nav-link" data-view="dashboard">
+        <span class="nav-icon"></span> Dashboard
+      </a>
+      <a href="/admin/product" class="nav-link active" data-view="products">
+        <span class="nav-icon"></span> Products
+      </a>
+      <a href="/admin/category" class="nav-link" data-view="categories">
+        <span class="nav-icon"></span> Categories
+      </a>
+      <a href="/admin/orders" class="nav-link" data-view="orders">
+        <span class="nav-icon"></span> Orders
+      </a>
+      <a href="/admin/user" class="nav-link" data-view="users">
+        <span class="nav-icon"></span> Users
+      </a>
+      <a href="/admin/offer" class="nav-link" data-view="offer">
+        <span class="nav-icon"></span> Offer
+      </a>
+      <a href="/admin/coupons" class="nav-link" data-view="coupons">
+        <span class="nav-icon"></span> Coupons
+      </a>
+      <a href="/admin/profile" class="nav-link" data-view="profile">
+        <span class="nav-icon"></span> Profile
+      </a>
+      </nav>
+
+      <div class="nav-bottom">
+        <a href="/admin/settings" class="nav-link">
+          <span class="nav-icon">⚙️</span> Settings
+        </a>
+        <a href="/admin/logout" class="nav-link nav-link-danger">
+          <span class="nav-icon">🚪</span> Logout
+        </a>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <h2><%= typeof product !== "undefined" ? "Edit Product" : "Add Product" %></h2>
+      </header>
+
+      <main class="content">
+        <div class="page-intro">
+          <p>Fill in the details below to <%= typeof product !== "undefined" ? "update this product" : "add a new product to your storefront" %>.</p>
+          <a href="/admin/product" class="add-category-btn" id="backToProductsBtn">
+            <span>←</span> Back to Products
+          </a>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3><%= typeof product !== "undefined" ? "Edit Product Details" : "Product Details" %></h3>
+          </div>
+
+          <form class="modal-form" id="productForm" enctype="multipart/form-data">
+            <input type="hidden" id="productId" name="productId" value="<%= typeof product !== "undefined" ? product._id : "" %>">
+
+            <div class="form-group">
+              <label for="categoryName">Name</label>
+              <input type="text" id="categoryName" name="productName" value="<%= typeof product !== "undefined" ? product.productName : "" %>" placeholder="e.g. TRX-4 Trail Crawler">
+              <span class="field-error" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="categoryDescription">Description</label>
+              <textarea id="categoryDescription" name="productDescription" rows="3" placeholder="Short description (optional)"><%= typeof product !== "undefined" ? product.discription : "" %></textarea>
+              <span class="field-error" id="descriptionError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="productCategory">Category</label>
+              <select id="productCategory" name="productCategory">
+                <option value="">Select a category</option>
+                <% categories.forEach(category => { %>
+                  <option value="<%= category.name %>" <%= typeof product !== "undefined" && product.category === category.name ? "selected" : "" %>><%= category.name %></option>
+                <% }) %>
+              </select>
+              <span class="field-error" id="categoryError"></span>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="productPrice">Price (₹)</label>
+                <input type="number" id="productPrice" name="productPrice" min="0" value="<%= typeof product !== "undefined" ? product.price : "" %>" placeholder="e.g. 12999">
+                <span class="field-error" id="priceError"></span>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label>Images</label>
+              <div class="image-upload-grid">
+
+                <!-- Image 1 -->
+                <div class="image-upload-slot">
+                  <div class="image-preview-wrapper">
+                    <img class="image-preview" id="imagePreview1" src="<%= typeof product !== "undefined" ? product.images[0] : "" %>" alt="Product Image 1" <%= typeof product !== "undefined" && product.images[0] ? 'style="display:block"' : "" %>>
+                  </div>
+
+                  <label class="image-upload-btn" for="categoryImage1">Choose Image 1</label>
+                  <input type="file" id="categoryImage1" name="productImage1" accept="image/jpeg,image/png,image/webp,image/avif">
+
+                  <button type="button" class="crop-image-btn" data-index="0">Crop Image</button>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="image-upload-slot">
+                  <div class="image-preview-wrapper">
+                    <img class="image-preview" id="imagePreview2" src="<%= typeof product !== "undefined" ? product.images[1] : "" %>" alt="Product Image 2" <%= typeof product !== "undefined" && product.images[1] ? 'style="display:block"' : "" %>>
+                  </div>
+
+                  <label class="image-upload-btn" for="categoryImage2">Choose Image 2</label>
+                  <input type="file" id="categoryImage2" name="productImage2" accept="image/jpeg,image/png,image/webp,image/avif">
+
+                  <button type="button" class="crop-image-btn" data-index="1">Crop Image</button>
+                </div>
+
+                <!-- Image 3 -->
+                <div class="image-upload-slot">
+                  <div class="image-preview-wrapper">
+                    <img class="image-preview" id="imagePreview3" src="<%= typeof product !== "undefined" ? product.images[2] : "" %>" alt="Product Image 3" <%= typeof product !== "undefined" && product.images[2] ? 'style="display:block"' : "" %>>
+                  </div>
+
+                  <label class="image-upload-btn" for="categoryImage3">Choose Image 3</label>
+                  <input type="file" id="categoryImage3" name="productImage3" accept="image/jpeg,image/png,image/webp,image/avif">
+
+                  <button type="button" class="crop-image-btn" data-index="2">Crop Image</button>
+                </div>
+
+              </div>
+              <span class="field-error" id="imageError"></span>
+            </div>
+
+            <!-- ===== TECHNICAL VARIANTS ===== -->
+            <div class="form-section">
+              <span class="form-section-title">Technical Variants</span>
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label>Color, Scale and Stock</label>
+                  <div class="form-group-row">
+                    <input type="text" id="variantColor" placeholder="Color">
+                    <select id="variantScale">
+                      <option value="">Scale</option>
+                      <option value="1:8">1:8</option>
+                      <option value="1:10">1:10</option>
+                      <option value="1:12">1:12</option>
+                      <option value="1:16">1:16</option>
+                      <option value="1:24">1:24</option>
+                    </select>
+                    <input type="number" id="variantStock" min="0" placeholder="Stock">
+                    <button type="button" class="modal-btn modal-btn-save" id="addVariantBtn">Add</button>
+                  </div>
+                  <div class="color-tags" id="variantList"></div>
+                  <input type="hidden" id="productVariants" name="productVariants" value='<%= typeof product !== "undefined" ? JSON.stringify(product.variant || []) : "[]" %>'>
+                  <span class="field-error" id="variantError"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== TECHNICAL SPECIFICATION ===== -->
+            <div class="form-section">
+              <span class="form-section-title">Technical Specification</span>
+              <div class="form-group">
+                <label for="productMotorType">Motor Type</label>
+                <input type="text" id="productMotorType" name="productMotorType" value="<%= typeof product !== "undefined" ? product.motorType : "" %>" placeholder="e.g. Brushless 3300KV">
+                <span class="field-error" id="motorError"></span>
+              </div>
+              <div class="form-group">
+                <label for="productChassisMaterial">Chassis Material</label>
+                <input type="text" id="productChassisMaterial" name="productChassisMaterial" value="<%= typeof product !== "undefined" ? product.chassisMaterial : "" %>" placeholder="e.g. Aluminum">
+                <span class="field-error" id="chassisError"></span>
+              </div>
+            </div>
+
+            <div class="modal-actions">
+              <a href="/admin/product" class="modal-btn modal-btn-cancel" id="cancelFormBtn">Cancel</a>
+              <button type="submit" class="modal-btn modal-btn-save" id="saveProductBtn"><%= typeof product !== "undefined" ? "Update Product" : "Save Product" %></button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== CROP MODAL (still a modal — cropping mid-form is expected UX) ===== -->
+  <div id="cropModal" class="crop-modal">
+    <div class="crop-modal-content">
+
+      <div class="crop-modal-header">
+        <h3>Crop Product Image</h3>
+        <button type="button" id="closeCropModal" class="crop-close-btn">×</button>
+      </div>
+
+      <div class="crop-container">
+        <img id="cropImage" src="" alt="Crop Image">
+      </div>
+
+      <div class="crop-controls">
+        <button type="button" id="zoomOutBtn">−</button>
+        <span id="zoomValue">100%</span>
+        <button type="button" id="zoomInBtn">+</button>
+        <button type="button" id="rotateLeftBtn">↶</button>
+        <button type="button" id="rotateRightBtn">↷</button>
+        <button type="button" id="resetCropBtn">Reset</button>
+      </div>
+
+      <div class="crop-actions">
+        <button type="button" id="cancelCropBtn" class="cancel-crop-btn">Cancel</button>
+        <button type="button" id="applyCropBtn" class="apply-crop-btn">Crop &amp; Resize</button>
+      </div>
+
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
+<script src="/js/admin/addNewProduct.js"></script>
+</body>
+</html>

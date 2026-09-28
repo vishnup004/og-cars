@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin/category.css">
+    <title>Document</title>
+</head>
+<body>
+    
+  <div class="shell">
+ 
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <h1>OG_CARS Admin</h1>
+        <p>CONTROL PANEL</p>
+      </div>
+ 
+      <nav class="nav">
+        <a href="/admin/home" class="nav-link" data-view="dashboard">
+        <span class="nav-icon"></span> Dashboard
+      </a>
+      <a href="/admin/product" class="nav-link" data-view="products">
+        <span class="nav-icon"></span> Products
+      </a>
+      <a href="/admin/category" class="nav-link" data-view="categories">
+        <span class="nav-icon"></span> Categories
+      </a>
+      <a href="/admin/orders" class="nav-link" data-view="orders">
+        <span class="nav-icon"></span> Orders
+      </a>
+      <a href="/admin/user" class="nav-link" data-view="users">
+        <span class="nav-icon"></span> Users
+      </a>
+      <a href="/admin/offer" class="nav-link" data-view="offer">
+        <span class="nav-icon"></span> Offer
+      </a>
+      <a href="/admin/coupons" class="nav-link" data-view="coupons">
+        <span class="nav-icon"></span> Coupons
+      </a>
+      <a href="/admin/profile" class="nav-link" data-view="profile">
+        <span class="nav-icon"></span> Profile
+      </a>  
+      </nav>
+ 
+      <div class="nav-bottom">
+        <a href="/admin/settings" class="nav-link">
+          <span class="nav-icon">⚙️</span> Settings
+        </a>
+        <a href="/admin/logout" class="nav-link nav-link-danger">
+          <span class="nav-icon">🚪</span> Logout
+        </a>
+      </div>
+    </aside>
+ 
+    <!-- ===== MAIN ===== -->
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <h2>Categories</h2>
+      </header>
+ 
+      <main class="content">
+        <div class="page-intro">
+          <p>Create, list/unlist, and manage the product categories shown in your storefront.</p>
+          <button class="add-category-btn" id="openAddModalBtn">
+            <span>+</span> Add Category
+          </button>
+        </div>
+ 
+        <div class="panel">
+          <div class="panel-header">
+            <h3>All Categories</h3>
+ 
+            <div class="panel-header-actions">
+              <form class="toolbar" id="searchForm" method="GET" action="/admin/categories">
+                <div class="search-wrap">
+                  <span class="search-icon">🔍</span>
+                  <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    name="search"
+                    placeholder="Search categories..."
+                    value=""
+                  >
+                  <button type="button" class="clear-btn" id="clearSearchBtn" title="Clear search">✕</button>
+                </div>
+ 
+                <input type="hidden" id="pageInput" name="page" value="1">
+                <input type="hidden" id="minPriceInput" name="minPrice" value="">
+                <input type="hidden" id="maxPriceInput" name="maxPrice" value="">
+                <input type="hidden" id="brandInput" name="brand" value="">
+ 
+                <button type="button" class="search-submit-btn" id="searchSubmitBtn">Search</button>
+ 
+                <!-- <div class="filter-wrap">
+                  <button type="button" class="filter-btn" id="filterToggleBtn">
+                    Filter
+                    <span class="filter-count" id="filterCount" style="display:none;">0</span>
+                  </button>
+ 
+                  <div class="filter-panel" id="filterPanel">
+                    <div class="filter-section" id="priceRangeGroup">
+                      <span class="filter-section-title">Price Range</span>
+                      <div class="filter-price-inputs">
+                        <input type="number" id="fMinPrice" placeholder="Min">
+                        <span class="filter-price-sep">–</span>
+                        <input type="number" id="fMaxPrice" placeholder="Max">
+                      </div>
+                      <label class="filter-option">
+                        <input type="radio" name="priceRangePreset" value="0-1000"> Under ₹1,000
+                      </label>
+                      <label class="filter-option">
+                        <input type="radio" name="priceRangePreset" value="1000-5000"> ₹1,000 – ₹5,000
+                      </label>
+                      <label class="filter-option">
+                        <input type="radio" name="priceRangePreset" value="5000-10000"> ₹5,000 – ₹10,000
+                      </label>
+                      <label class="filter-option">
+                        <input type="radio" name="priceRangePreset" value="10000-"> ₹10,000+
+                      </label>
+                    </div>
+ 
+                    <div class="filter-section" id="brandGroup">
+                      <span class="filter-section-title">Brand</span>
+                      <div class="filter-checkbox-group">
+                        <label class="filter-option">
+                          <input type="checkbox" name="fBrand" value="Traxxas"> Traxxas
+                        </label>
+                        <label class="filter-option">
+                          <input type="checkbox" name="fBrand" value="Tamiya"> Tamiya
+                        </label>
+                        <label class="filter-option">
+                          <input type="checkbox" name="fBrand" value="HPI Racing"> HPI Racing
+                        </label>
+                        <label class="filter-option">
+                          <input type="checkbox" name="fBrand" value="Losi"> Losi
+                        </label>
+                        <label class="filter-option">
+                          <input type="checkbox" name="fBrand" value="Arrma"> Arrma
+                        </label>
+                      </div>
+                    </div>
+ 
+                    <div class="filter-panel-actions">
+                      <button type="button" class="modal-btn modal-btn-cancel" id="filterClearBtn">Clear</button>
+                      <button type="button" class="modal-btn modal-btn-save" id="filterApplyBtn">Apply</button>
+                    </div>
+                  </div>
+                </div> -->
+              </form>
+            </div>
+          </div>
+ 
+          <!-- Active filter chips (populated client-side from the URL on load) -->
+          <div class="active-filter-chips" id="activeFilterChips"></div>
+ 
+          <!-- ===== CATEGORY LIST (sample rows) ===== -->
+           <div class="category-list" id="categoryList">
+           <% category.forEach(cat => { %>
+ 
+            <div class="category-row">
+              <div class="cat-cell">
+                <img class="cat-thumb" src="<%= cat.image%>" alt="Off-Road Buggies">
+                <div>
+                  <span class="cat-name"><%= cat.name%></span>
+                  <span class="cell-desc"><%= cat.discription%></span>
+                </div>
+              </div>
+ 
+              <div class="row-products">
+                <span class="row-products-label">Products</span>
+                <span class="row-products-count"></span>
+              </div>
+ 
+              <span class="status-badge <%= cat.status === 'active' ? 'active' : 'blocked' %>" data-status-id="<%= cat._id%>">
+                <%= cat.status === 'active' ? 'Listed' : 'Unlisted'%>
+              </span>
+ 
+              <div class="actions-cell">
+                <button
+                  class="icon-btn edit-btn"
+                  title="Edit"
+                  data-id="<%= cat._id%>"
+                  data-name="<%= cat.name%>"
+                  data-description="<%= cat.discription%>"
+                  data-image="<%= cat.image%>"
+                >✏️</button>
+ 
+                <button class="icon-btn delete-btn" title="Delete" data-id="<%= cat._id%>" data-name="<%= cat.name%>">🗑️</button>
+
+                <% if(cat.status === 'active') { %>
+ 
+                <button class="block-btn" title="Unlist category" data-id="<%= cat._id %>"></button>
+                <%} else {%>
+                  <button class="unblock-btn" title="List category" data-id="<%= cat._id %>"></button>
+                <% } %>
+              </div>
+            </div>
+
+          <% }) %>
+          </div>
+ 
+          <!-- ===== PAGINATION (sample) ===== -->
+          <div class="pagination-bar">
+            <span class="pagination-info">Page <%= currentPage%> of <%= totalPage%></span>
+            <div class="pagination-controls">
+              <a class="page-btn disabled" href="/admin/category?search=&page=<%= currentPage > 1 ? currentPage - 1 : currentPage %>" aria-disabled="true">‹</a>
+              <% for(let i = 1 ; i < totalPage ; i++ ) { %>
+                <a class="page-btn active" href="/admin/category?search=&page=<%= i%>"><%= i%></a>
+                <% } %>
+              
+              
+              <a class="page-btn" href="/admin/category?search=&page=<%= totalPage > currentPage ? currentPage + 1 : currentPage%>">›</a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+ 
+  <!-- ===== ADD / EDIT MODAL ===== -->
+  <div class="modal-overlay" id="categoryModalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add Category</h3>
+        <button class="modal-close-btn" id="closeModalBtn">✕</button>
+      </div>
+ 
+      <form class="modal-form" id="categoryForm" enctype="multipart/form-data">
+        <input type="hidden" id="categoryId" name="categoryId" value="">
+ 
+        <div class="form-group">
+          <label for="categoryName">Name</label>
+          <input type="text" id="categoryName" name="categoryName" placeholder="e.g. Off-Road Buggies">
+          <span class="field-error" id="nameError"></span>
+        </div>
+ 
+        <div class="form-group">
+          <label for="categoryDescription">Description</label>
+          <textarea id="categoryDescription" name="categoryDescription" rows="3" placeholder="Short description (optional)"></textarea>
+          <span class="field-error" id="descriptionError"></span>
+        </div>
+ 
+        <div class="form-group">
+          <label for="categoryImage">Image</label>
+          <div class="image-upload-wrap">
+            <img class="image-preview" id="imagePreview" src="" alt="" style="display:none;">
+            <label class="image-upload-btn" for="categoryImage">Choose Image</label>
+            <input type="file" id="categoryImage" name="categoryImage" accept="image/*">
+          </div>
+          <span class="field-error" id="imageError"></span>
+        </div>
+ 
+        <div class="modal-actions">
+          <button type="button" class="modal-btn modal-btn-cancel" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="modal-btn modal-btn-save" id="saveCategoryBtn">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+<div class="modal-overlay" id="deleteModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Delete Category</h3>
+
+      <button
+        class="modal-close-btn"
+        id="closeDeleteModalBtn"
+        type="button">✕</button>
+    </div>
+
+    <div class="modal-form">
+      <p>
+        Are you sure you want to delete this category?</p>
+      <p id="deleteCategoryName"></p>
+
+      <input
+        type="hidden"
+        id="deleteCategoryId">
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="modal-btn modal-btn-cancel"
+          id="cancelDeleteBtn">  Cancel</button>
+
+        <button
+          type="button"
+          class="modal-btn modal-btn-save"
+          id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+ 
+<script src="/js/admin/category.js"></script>
+</body>
+</html>
