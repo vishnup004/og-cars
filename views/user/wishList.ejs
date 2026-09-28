@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/css/user/home.css">
+    <link rel="stylesheet" href="/css/user/wishList.css">
+
+    <title>OG_CARS - My Garage Wishlist</title>
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">OG_CARS</div>
+    <div class="nav-links">
+      <a class="nav-link" href="/home">Shop</a>
+      <a class="nav-link" href="/category">Categories</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link" href="#">Faq</a>
+    </div>
+    <div class="nav-actions">
+      <div class="icon-buttons">
+        <button class="icon-btn" aria-label="Search">
+          <span class="material-symbols-outlined">search</span>
+        </button>
+        <a href="/wishlist" class="icon-btn active" aria-label="Wishlist">
+          <span class="material-symbols-outlined">favorite</span>
+        </a>
+        <a href="/mainCart" class="icon-btn icon-btn-cart" aria-label="Cart">
+          <span class="material-symbols-outlined">shopping_cart</span>
+          <span class="cart-dot" id="nav-cart-dot"></span>
+        </a>
+        <a href="/profile" class="icon-btn" aria-label="Account" id="profile-button">
+          <span class="material-symbols-outlined">person</span>
+        </a>
+        <button class="icon-btn menu-btn" aria-label="Menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+
+  <!-- Page Header -->
+  <section class="wl-header">
+    <div class="wl-inner">
+      <div class="wl-title-row">
+        <span class="wl-title-bar"></span>
+        <h1 class="wl-title">MY GARAGE <span class="accent">WISHLIST</span></h1>
+        <span class="wl-count" id="wl-count">4 MACHINES RESERVED</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wishlist Grid -->
+  <section class="wl-section">
+    <div class="wl-inner">
+
+      <div class="wl-grid" id="wl-grid">
+
+        <!-- Card 1 -->
+        <article class="wl-card" data-id="p1">
+          <div class="wl-media">
+            <button class="wl-remove" data-action="remove" aria-label="Remove Traxxas TRX-4 from wishlist">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <a href="/product/p1" class="wl-media-link">
+              <img class="wl-img" src="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=800&q=80" alt="Traxxas TRX-4">
+            </a>
+            <span class="wl-status wl-status-in-stock">IN STOCK</span>
+          </div>
+          <div class="wl-body">
+            <h3 class="wl-name"><a href="/product/p1">TRAXXAS TRX-4</a></h3>
+            <p class="wl-meta">CHASSIS: ALL-TERRAIN • SCALE: 1/10</p>
+            <div class="wl-price-row">
+              <span class="wl-price">₹54,900</span>
+              <span class="wl-old-price">₹59,900</span>
+              <span class="wl-off">(8% OFF)</span>
+            </div>
+            <button class="btn btn-primary wl-move-btn" data-action="move">
+              <span class="btn-inner">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                MOVE TO CART
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="wl-card" data-id="p2">
+          <div class="wl-media">
+            <button class="wl-remove" data-action="remove" aria-label="Remove Rofun Baja 5B from wishlist">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <a href="/product/p2" class="wl-media-link">
+              <img class="wl-img" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80" alt="Rofun Baja 5B">
+            </a>
+            <span class="wl-status wl-status-low-stock">LOW STOCK</span>
+          </div>
+          <div class="wl-body">
+            <h3 class="wl-name"><a href="/product/p2">ROFUN BAJA 5B</a></h3>
+            <p class="wl-meta">MOTOR: 36CC GAS POWERED • SCALE: 1/5</p>
+            <div class="wl-price-row">
+              <span class="wl-price">₹89,500</span>
+            </div>
+            <button class="btn btn-primary wl-move-btn" data-action="move">
+              <span class="btn-inner">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                MOVE TO CART
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="wl-card" data-id="p3">
+          <div class="wl-media">
+            <button class="wl-remove" data-action="remove" aria-label="Remove Arrma Infraction from wishlist">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <a href="/product/p3" class="wl-media-link">
+              <img class="wl-img" src="https://images.unsplash.com/photo-1600661653561-629509216228?w=800&q=80" alt="Arrma Infraction">
+            </a>
+            <span class="wl-status wl-status-low-stock">LOW STOCK</span>
+          </div>
+          <div class="wl-body">
+            <h3 class="wl-name"><a href="/product/p3">ARRMA INFRACTION</a></h3>
+            <p class="wl-meta">CLASS: AS STREET BASHER • SCALE: 1/8</p>
+            <div class="wl-price-row">
+              <span class="wl-price">₹62,999</span>
+              <span class="wl-old-price">₹64,999</span>
+              <span class="wl-off">(3% OFF)</span>
+            </div>
+            <button class="btn btn-primary wl-move-btn" data-action="move">
+              <span class="btn-inner">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                MOVE TO CART
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="wl-card" data-id="p4">
+          <div class="wl-media">
+            <button class="wl-remove" data-action="remove" aria-label="Remove Losi Super Baja from wishlist">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <a href="/product/p4" class="wl-media-link">
+              <img class="wl-img" src="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=800&q=80&sat=-50" alt="Losi Super Baja">
+            </a>
+            <span class="wl-status wl-status-in-stock">IN STOCK</span>
+          </div>
+          <div class="wl-body">
+            <h3 class="wl-name"><a href="/product/p4">LOSI SUPER BAJA</a></h3>
+            <p class="wl-meta">MOTOR: BRUSHLESS • SCALE: 1/6</p>
+            <div class="wl-price-row">
+              <span class="wl-price">₹1,19,900</span>
+            </div>
+            <button class="btn btn-primary wl-move-btn" data-action="move">
+              <span class="btn-inner">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                MOVE TO CART
+              </span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Empty state (shown by JS when the last card is removed) -->
+      <div class="wl-empty" id="wl-empty" hidden>
+        <span class="material-symbols-outlined wl-empty-icon">favorite</span>
+        <h2 class="wl-empty-title">Your garage wishlist is empty</h2>
+        <p class="wl-empty-text">Tap the heart on any machine to save it here.</p>
+        <a class="btn btn-primary" href="/category">
+          <span class="btn-inner">BROWSE MACHINES</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">OG_CARS</div>
+      <p class="footer-desc">
+        Engineering precision instruments for the world's most demanding RC pilots and racers.
+      </p>
+    </div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">Privacy Policy</a>
+      <a class="footer-link" href="#">Terms of Service</a>
+      <a class="footer-link" href="#">Shipping Info</a>
+      <a class="footer-link" href="#">Warranty</a>
+    </div>
+    <div class="footer-social">
+      <div class="social-btn" aria-label="Share">
+        <span class="material-symbols-outlined">share</span>
+      </div>
+      <div class="social-btn" aria-label="Contact">
+        <span class="material-symbols-outlined">alternate_email</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 OG_CARS PRECISION ENGINEERING. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+
+<script src="/js/user/wishList.js"></script>
+</body>
+</html>
