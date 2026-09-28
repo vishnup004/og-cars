@@ -1,0 +1,371 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet"
+      >
+      <link rel="stylesheet" href="/css/user/home.css">
+      <link rel="stylesheet" href="/css/user/product.css">
+      <link rel="stylesheet" href="/css/user/cart.css">
+
+      <title><%= product.productName %></title>
+  </head>
+  <body>
+
+  <!-- TopNavBar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="brand">OG_CARS</div>
+      <div class="nav-links">
+        <a class="nav-link" href="/home">Shop</a>
+        <a class="nav-link active" href="/category">Categories</a>
+        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" href="#">Faq</a>
+      </div>
+      <div class="nav-actions">
+        <div class="icon-buttons">
+          <button class="icon-btn" aria-label="Search">
+            <span class="material-symbols-outlined">search</span>
+          </button>
+          <a href="/user/wishlist" class="icon-btn" aria-label="Wishlist">
+            <span class="material-symbols-outlined">favorite_border</span>
+          </a>
+          <a href="/mainCart" class="icon-btn icon-btn-cart" aria-label="Cart">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="cart-dot"></span>
+          </a>
+          <a href="/profile" class="icon-btn" aria-label="Account" class="profileBt" id="profile-button">
+            <span class="material-symbols-outlined">person</span>
+          </a>
+          <button class="icon-btn menu-btn" aria-label="Menu">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <!-- Breadcrumb --> 
+    <section class="pdp-breadcrumb-section">
+      <div class="pdp-inner">
+        <p class="pdp-breadcrumb">
+          <a href="/home">HOME</a>
+          <span class="material-symbols-outlined">chevron_right</span>
+          <a href="/category">MODELS</a>
+          <span class="material-symbols-outlined">chevron_right</span>
+          <span class="pdp-breadcrumb-current"><%= product.productName%></span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Product Main -->
+    <section class="pdp-main-section">
+      <div class="pdp-inner pdp-grid">
+
+        <!-- Gallery -->
+        <div class="pdp-gallery">
+          <div class="pdp-main-media glass-card"  id="pdp-zoom-container">
+            <span class="product-badge pdp-badge">SALE</span>
+            <img class="pdp-main-img" id="pdp-main-img" src="<%= product.images[0] %>" alt="<%= product.productName %>">
+          </div>
+          <div class="pdp-thumb-row" id="pdp-thumb-row">
+            <% if ( product.images.length > 1 ) { %>
+              <% product.images.forEach( image => { %>
+            <button class="pdp-thumb active" data-img="<%= image%>">
+              <img src="<%= image%>" alt="Rofun BAJA 5b 32cc view 1">
+            </button>
+            <% }) %>
+            <% } %>
+            <!-- <button class="pdp-thumb" data-img="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=200&q=80" alt="Rofun BAJA 5b 32cc view 2">
+            </button>
+            <button class="pdp-thumb" data-img="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=200&q=80" alt="Rofun BAJA 5b 32cc view 3">
+            </button>
+            <button class="pdp-thumb" data-img="https://images.unsplash.com/photo-1600661653561-629509216228?w=800&q=80&sat=-50">
+              <img src="https://images.unsplash.com/photo-1600661653561-629509216228?w=200&q=80&sat=-50" alt="Rofun BAJA 5b 32cc view 4">
+            </button>
+            <button class="pdp-thumb" data-img="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=800&q=80&sat=-50">
+              <img src="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=200&q=80&sat=-50" alt="Rofun BAJA 5b 32cc view 5">
+            </button> -->
+          </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="pdp-info">
+
+          <h1 class="pdp-title"><%= product.productName%></h1>
+
+          <div class="pdp-rating-row">
+            <div class="pdp-stars">
+              <span class="material-symbols-outlined star-filled">star</span>
+              <span class="material-symbols-outlined star-filled">star</span>
+              <span class="material-symbols-outlined star-filled">star</span>
+              <span class="material-symbols-outlined star-filled">star</span>
+              <span class="material-symbols-outlined star-empty">star</span>
+            </div>
+            <span class="pdp-review-count">(124 Reviews)</span>
+          </div>
+
+          <p class="pdp-description"><%= product.discription%></p>
+
+          <div class="pdp-price-card glass-card">
+            <div class="pdp-price-row">
+              <span class="pdp-price">₹<%= product.price %></span>
+              <span class="old-price pdp-old-price">₹90,000</span>
+            </div>
+            <p class="pdp-tax-note">INCLUSIVE OF ALL TAXES</p>
+          </div>
+
+          <div class="pdp-option-group">
+            <p class="pdp-option-label">SELECT COLOR</p>
+            <div class="pdp-color-row" data-variants='<%- JSON.stringify(variants) %>'>
+              <% if ( clrs.length > 1 ) { %>
+              <% clrs.forEach((color, index) => { %>
+              <button class="pdp-color-swatch <%= index === 0 ? 'active' : '' %>" style="--swatch-color: <%= color%>" data-color="<%= color%>" aria-label="<%= color%>"></button>
+              <!-- <button class="pdp-color-swatch" style="--swatch-color: #e6473f" data-color="Red" aria-label="Red"></button>
+              <button class="pdp-color-swatch" style="--swatch-color: #f5a623" data-color="Orange" aria-label="Orange"></button>
+              <button class="pdp-color-swatch" style="--swatch-color: #3b7de6" data-color="Blue" aria-label="Blue"></button> -->
+              <% }) %>
+              <% } else { %>
+                <button class="pdp-color-swatch active" style="--swatch-color: <%= clrs?.[0] %>" data-color="<%= clrs?.[0] %>" aria-label="<%= clrs?.[0] %>"></button>
+                <% } %>
+            </div>
+          </div>
+
+          <div class="pdp-option-group">
+            <p class="pdp-option-label">SCALE</p>
+            <div class="pdp-pill-row" id="scaleOptions">
+              <% [...new Set(variants.map((variant) => variant.scale))].forEach((scale, index) => { %>
+                <button class="pdp-pill <%= index === 0 ? 'active' : '' %>" data-scale="<%= scale %>"><%= scale %></button>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="pdp-option-group">
+            <p class="pdp-option-label">MOTORE TYPE</p>
+            <div class="pdp-pill-row">
+              <button class="pdp-pill active" data-scale="1/5 Scale"><%= product.motorType%></button>
+            </div>
+          </div>  
+
+          <!-- <div class="pdp-option-group">
+            <p class="pdp-option-label">ENGINE SIZE & PERFORMANCE</p>
+            <div class="select-wrap pdp-select-wrap">
+              <select class="sort-select pdp-variant-select" id="pdp-variant-select">
+                <option value="32cc-standard">32cc Single-Cylinder (Standard)</option>
+                <option value="36cc-upgraded">36cc Single-Cylinder (Upgraded)</option>
+              </select>
+              <span class="material-symbols-outlined select-caret">expand_more</span>
+            </div>
+          </div> -->
+
+          <div class="pdp-purchase-row">
+            <div class="pdp-qty-box">
+              <button class="pdp-qty-btn" id="pdp-qty-minus" aria-label="Decrease quantity">-</button>
+              <input type="text" class="pdp-qty-input" id="pdp-qty-input" value="1" inputmode="numeric" aria-label="Quantity">
+              <button class="pdp-qty-btn" id="pdp-qty-plus" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="btn btn-primary pdp-add-cart" id="pdp-add-cart" data-product-id="<%= product._id %>">
+              <span class="btn-inner">ADD TO CART</span>
+            </button>
+          </div>
+
+          <button class="btn btn-outline pdp-buy-now" id="pdp-buy-now" data-product-id="<%= product._id %>">
+            <span class="btn-inner">BUY IT NOW</span>
+          </button>
+
+          <div class="pdp-trust-row">
+            <div class="pdp-trust-item">
+              <span class="material-symbols-outlined">local_shipping</span>
+              <span>FREE SHIPPING</span>
+            </div>
+            <div class="pdp-trust-item">
+              <span class="material-symbols-outlined">verified</span>
+              <span>SECURE PACK</span>
+            </div>
+            <div class="pdp-trust-item">
+              <span class="material-symbols-outlined">replay</span>
+              <span>7 DAY RETURNS</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="pdp-specs-section">
+      <div class="pdp-inner">
+        <h2 class="pdp-section-title">TECHNICAL <span class="accent">SPECIFICATIONS</span></h2>
+
+        <div class="pdp-specs-grid">
+          <div class="pdp-spec-card glass-card">
+            <span class="material-symbols-outlined pdp-spec-icon">settings</span>
+            <h3 class="pdp-spec-title">Engine</h3>
+          </div>
+          <div class="pdp-spec-card glass-card">
+            <span class="material-symbols-outlined pdp-spec-icon">straighten</span>
+            <h3 class="pdp-spec-title">Dimensions</h3>
+          </div>
+          <div class="pdp-spec-card glass-card">
+            <span class="material-symbols-outlined pdp-spec-icon">settings_remote</span>
+            <h3 class="pdp-spec-title">Control System</h3>
+          </div>
+        </div>
+
+        <div class="pdp-spec-details-card glass-card">
+          <div class="pdp-spec-details-grid">
+            <ul class="pdp-spec-list">
+              <li><span class="material-symbols-outlined">chevron_right</span>Wheelbase 570mm, Rear-wheel drive, Rear axle tracks</li>
+              <li><span class="material-symbols-outlined">chevron_right</span>Second-generation SD resonance tube & metal differential</li>
+              <li><span class="material-symbols-outlined">chevron_right</span>8mm shock absorbers & 3CBV 2000 mAh battery</li>
+            </ul>
+            <ul class="pdp-spec-list">
+              <li><span class="material-symbols-outlined">chevron_right</span>45KG metal gear steering servo (plastic version)</li>
+              <li><span class="material-symbols-outlined">chevron_right</span>Third-generation waterproof tires (fourth-generation wheels)</li>
+              <li><span class="material-symbols-outlined">chevron_right</span>New material wear-resistant 9000 rpm clutch</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="pdp-related-section">
+      <div class="pdp-inner">
+        <h2 class="pdp-section-title">RELATED <span class="accent">PRODUCTS</span></h2>
+        <div class="product-grid pdp-related-grid">
+        <% relatedProducts.forEach( product => { %>
+          
+          <a class="product-card pdp-related-card" href="/product/<%= product._id %>">
+            <div class="product-media">
+              <img class="product-img" alt="Rofun BAJA 5SC" src="<%= product.images[0] %>">
+            </div>
+            <div class="product-body cat-product-body">
+              <h3 class="product-name cat-product-name"><%= product.productName %></h3>
+              <div class="pdp-related-rating">
+                <span class="material-symbols-outlined star-filled">star</span>
+                <span class="material-symbols-outlined star-filled">star</span>
+                <span class="material-symbols-outlined star-filled">star</span>
+                <span class="material-symbols-outlined star-filled">star</span>
+                <span class="material-symbols-outlined star-empty">star</span>
+              </div>
+              <div class="price-row">
+                <span class="price">₹<%= product.price %></span>
+              </div>
+            </div>
+          </a>
+          <% }) %>
+        </div>
+        
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">OG_CARS</div>
+        <p class="footer-desc">
+          Engineering precision instruments for the world's most demanding RC pilots and racers.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="#">Privacy Policy</a>
+        <a class="footer-link" href="#">Terms of Service</a>
+        <a class="footer-link" href="#">Shipping Info</a>
+        <a class="footer-link" href="#">Track Order</a>
+      </div>
+      <div class="footer-social">
+        <div class="social-btn" aria-label="Share">
+          <span class="material-symbols-outlined">share</span>
+        </div>
+        <div class="social-btn" aria-label="Contact">
+          <span class="material-symbols-outlined">alternate_email</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 HYPER_RC MOTORSPORTS. ENGINEERED FOR PRECISION.</p>
+    </div>
+  </footer>
+
+  
+  <div class="cart-overlay" id="cart-overlay"></div>
+  
+  <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Shopping cart">
+  
+    <div class="cart-drawer-header">
+      <div>
+        <h2 class="cart-drawer-title">SHOPPING CART</h2>
+        <p class="cart-drawer-count" id="cart-item-count">0 items</p>
+      </div>
+      <button class="icon-btn cart-close-btn" id="cart-close" aria-label="Close cart">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  
+    <div class="cart-drawer-body">
+  
+      <!-- Line items -->
+      <ul class="cart-items" id="cart-items">
+        <!-- JS renders <li class="cart-item"> here. Empty state shown when list is empty. -->
+      </ul>
+  
+      <div class="cart-empty" id="cart-empty" hidden>
+        <!-- <span class="material-symbols-outlined cart-empty-icon">shopping_cart</span>
+        <p class="cart-empty-text">Your cart is empty</p> -->
+        <a href="/category" class="btn btn-outline cart-empty-cta">CONTINUE SHOPPING</a>
+      </div>
+  
+      <!-- You may also like -->
+      <div class="cart-upsell" id="cart-upsell">
+        <div class="cart-upsell-header">
+          <p class="pdp-option-label cart-upsell-label">YOU MAY ALSO LIKE</p>
+          <div class="cart-upsell-nav">
+            <button class="icon-btn cart-upsell-prev" id="cart-upsell-prev" aria-label="Previous suggestion">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button class="icon-btn cart-upsell-next" id="cart-upsell-next" aria-label="Next suggestion">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+        <div class="cart-upsell-track" id="cart-upsell-track">
+          <!-- JS renders .cart-upsell-card here -->
+        </div>
+      </div>
+  
+    </div>
+  
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-row">
+        <span class="cart-summary-label">Subtotal:</span>
+        <span class="cart-summary-value" id="cart-subtotal">₹</span>
+      </div>
+      <div class="cart-summary-row cart-summary-total">
+        <span class="cart-summary-label">Total:</span>
+        <span class="cart-summary-value cart-total-value" id="cart-total">₹</span>
+      </div>
+  
+      <button class="btn btn-primary cart-checkout-btn" id="cart-checkout">
+        <span class="btn-inner">CHECKOUT</span>
+      </button>
+      <a href="/mainCart" class="btn btn-outline cart-view-btn" id="cart-view">
+        <span class="btn-inner">VIEW CART</span>
+      </a>
+    </div>
+  
+  </aside>
+  <script src="/js/user/product.js"></script>
+  <script src="/js/user/cart.js"></script>
+  </body>
+  </html>
